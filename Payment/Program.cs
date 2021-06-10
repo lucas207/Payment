@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Payment
+namespace Payment.Old
 {
     class Program
     {
