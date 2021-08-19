@@ -14,7 +14,7 @@ namespace Payment.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class PaymentController : ControllerBase
+    public class PaymentController : MyBaseController
     {
         private readonly ILogger<PaymentController> _logger;
         private readonly IMediator _mediator;
@@ -33,6 +33,7 @@ namespace Payment.API.Controllers
                 var command = new GetPaymentByIdQuery { Id = id };
                 var response = await _mediator.Send(command);
                 return Ok(response);
+                //return Response(response);
             }
             catch (Exception ex)
             {
