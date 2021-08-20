@@ -1,4 +1,5 @@
-﻿using Eice.Payment.Infra;
+﻿using Eice.Payment.API.Notification;
+using Eice.Payment.Infra;
 using Eice.Payment.Infra.Model;
 using MediatR;
 using System;
@@ -9,19 +10,41 @@ using System.Threading.Tasks;
 
 namespace Eice.Payment.API.Command
 {
-    public class ClientCreateCommandHandler : IRequestHandler<ClientCreateCommand, Guid>
+    public class ClientCreateCommandHandler : CommandHandler, IRequestHandler<ClientCreateCommand, Guid>
     {
-        public Task<Guid> Handle(ClientCreateCommand request, CancellationToken cancellationToken)
+        public ClientCreateCommandHandler(IMediator bus) : base(bus)
         {
-            //Passar o Fluent Validation
+        }
 
-            MongoDbContext dbContext = new MongoDbContext();
+        public async Task<Guid> Handle(ClientCreateCommand request, CancellationToken cancellationToken)
+        {
+            if (!request.IsValid()) { GetNotificationsErrors(request); return default; }
 
-            ClientModel entity = new ClientModel();
-            entity.Id = Guid.NewGuid();
-            dbContext.Clientes.InsertOne(entity);
+            try
+            {
+                //inserir context no conteiner
+                MongoDbContext dbContext = new MongoDbContext();
 
-            return Task.FromResult(entity.Id);
+                //metodo to map
+                ClientModel entity = new ClientModel();
+                entity.Id = Guid.NewGuid();
+                entity.Name = request.Name;
+                entity.TipoPessoa = request.TipoPessoa;
+                entity.CpfCnpj = request.CpfCnpj;
+                
+                //automatic field
+                entity.CreatedAt = DateTime.Now;
+
+                dbContext.Clientes.InsertOne(entity);
+
+                return entity.Id;
+
+            }
+            catch (Exception ex)
+            {
+                await _bus.Publish(new ExceptionNotification("500", ex.Message, null, ex.StackTrace));  
+                return default;
+            }
         }
     }
 }

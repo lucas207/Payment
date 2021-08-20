@@ -1,3 +1,4 @@
+using Eice.Payment.API.Notification;
 using Eice.Payment.Infra;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
@@ -38,6 +39,7 @@ namespace Eice.Payment.API
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Eice.Payment.API", Version = "v1" });
             });
             services.AddMediatR(typeof(Startup));
+            services.AddScoped<INotificationHandler<ExceptionNotification>, ExceptionNotificationHandler>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
