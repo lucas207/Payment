@@ -18,6 +18,7 @@
   <ItemGroup>
     <Folder Include="Domain\Client\Command\" />
     <Folder Include="Ioc\" />
+    <Folder Include="Authentication\" />
     <Folder Include="Repository\" />
   </ItemGroup>
 
