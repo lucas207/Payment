@@ -1,4 +1,4 @@
-﻿using Eice.Payment.Infra.Model;
+﻿using Eice.Payment.Domain.Client;
 using MediatR;
 using System;
 

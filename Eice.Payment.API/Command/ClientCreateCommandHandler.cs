@@ -1,10 +1,8 @@
 ﻿using Eice.Payment.API.Notification;
+using Eice.Payment.Domain.Client;
 using Eice.Payment.Infra;
-using Eice.Payment.Infra.Model;
 using MediatR;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -12,8 +10,10 @@ namespace Eice.Payment.API.Command
 {
     public class ClientCreateCommandHandler : CommandHandler, IRequestHandler<ClientCreateCommand, Guid>
     {
-        public ClientCreateCommandHandler(IMediator bus) : base(bus)
+        private readonly IClienteRepository _clienteRepository;
+        public ClientCreateCommandHandler(IMediator bus, IClienteRepository clienteRepository) : base(bus)
         {
+            _clienteRepository = clienteRepository;
         }
 
         public async Task<Guid> Handle(ClientCreateCommand request, CancellationToken cancellationToken)
@@ -22,20 +22,13 @@ namespace Eice.Payment.API.Command
 
             try
             {
-                //inserir context no conteiner
-                MongoDbContext dbContext = new MongoDbContext();
-
+                
                 //metodo to map
                 ClientModel entity = new ClientModel();
-                entity.Id = Guid.NewGuid();
                 entity.Name = request.Name;
                 entity.TipoPessoa = request.TipoPessoa;
                 entity.CpfCnpj = request.CpfCnpj;
-                
-                //automatic field
-                entity.CreatedAt = DateTime.Now;
-
-                dbContext.Clientes.InsertOne(entity);
+                _clienteRepository.Save(entity);
 
                 return entity.Id;
 

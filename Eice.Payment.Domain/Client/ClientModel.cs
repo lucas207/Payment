@@ -1,7 +1,13 @@
-﻿using System;
+﻿using Eice.Payment.Domain.Interface.Model;
+using Eice.Payment.Domain.Model;
+using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace Eice.Payment.Infra.Model
+namespace Eice.Payment.Domain.Client
 {
     public class ClientModel : BaseModel
     {
@@ -16,6 +22,7 @@ namespace Eice.Payment.Infra.Model
         public string Name { get; set; }
         public int CpfCnpj { get; set; }
         public ETipoPessoa TipoPessoa { get; set; }
+
     }
 
     public enum ETipoPessoa
