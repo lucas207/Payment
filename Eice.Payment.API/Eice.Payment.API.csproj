@@ -16,7 +16,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Domain\Client\Command\" />
     <Folder Include="Ioc\" />
     <Folder Include="Authentication\" />
   </ItemGroup>
