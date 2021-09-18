@@ -42,7 +42,7 @@ namespace Eice.Payment.API
 
             services.AddMediatR(typeof(Startup));
             services.AddScoped<INotificationHandler<ExceptionNotification>, ExceptionNotificationHandler>();
-            services.AddScoped<IClienteRepository, ClientRepository>();
+            services.AddTransient<IClienteRepository, ClientRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

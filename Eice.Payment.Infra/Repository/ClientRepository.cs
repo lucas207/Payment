@@ -25,7 +25,10 @@ namespace Eice.Payment.Infra.Repository
 
         public Task<Client> Get(ObjectId Id)
         {
-            throw new NotImplementedException();
+            var filter = Builders<Client>.Filter.Eq(c => c.Id, Id);
+            var client = _clientes.Find(filter).FirstOrDefaultAsync();
+
+            return client;
         }
 
         public async Task<IEnumerable<Client>> GetAll()
@@ -35,14 +38,24 @@ namespace Eice.Payment.Infra.Repository
             return clientes;
         }
 
-        public Task<bool> Update(ObjectId Id, Client entity)
+        public async Task<bool> Update(ObjectId Id, Client entity)
         {
-            throw new NotImplementedException();
+            var filter = Builders<Client>.Filter.Eq(c => c.Id, Id);
+            var update = Builders<Client>.Update
+                .Set(c => c.Name, entity.Name)
+                .Set(c => c.TipoPessoa, entity.TipoPessoa)
+                .Set(c => c.CpfCnpj, entity.CpfCnpj);
+            var result = await _clientes.UpdateOneAsync(filter, update);
+
+            return result.ModifiedCount == 1;
         }
 
-        public Task<bool> Delete(ObjectId Id)
+        public async Task<bool> Delete(ObjectId Id)
         {
-            throw new NotImplementedException();
+            var filter = Builders<Client>.Filter.Eq(c => c.Id, Id);
+            var result = await _clientes.DeleteOneAsync(filter);
+
+            return result.DeletedCount == 1;
         }
     }
 }
