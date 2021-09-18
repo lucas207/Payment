@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Eice.Payment.Domain.Client
+namespace Eice.Payment.Domain.Customer
 {
     public class Service
     {

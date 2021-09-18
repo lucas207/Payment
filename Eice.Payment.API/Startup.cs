@@ -1,5 +1,5 @@
 using Eice.Payment.API.Notification;
-using Eice.Payment.Domain.Client;
+using Eice.Payment.Domain.Customer;
 using Eice.Payment.Infra;
 using Eice.Payment.Infra.Repository;
 using MediatR;
@@ -42,7 +42,7 @@ namespace Eice.Payment.API
 
             services.AddMediatR(typeof(Startup));
             services.AddScoped<INotificationHandler<ExceptionNotification>, ExceptionNotificationHandler>();
-            services.AddTransient<IClienteRepository, ClientRepository>();
+            services.AddTransient<ICustomerRepository, CustomerRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

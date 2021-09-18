@@ -10,6 +10,7 @@
 
   <ItemGroup>
     <Folder Include="Interface\Repository\" />
+    <Folder Include="Model\" />
   </ItemGroup>
 
 </Project>

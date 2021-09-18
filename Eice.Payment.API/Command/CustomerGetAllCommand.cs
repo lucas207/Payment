@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Eice.Payment.API.Command
 {
-    public class ClientGetAllCommand : Command, IRequest<IEnumerable<ClientDto>>
+    public class CustomerGetAllCommand : Command, IRequest<IEnumerable<CustomerDto>>
     {
         public override bool IsValid()
         {

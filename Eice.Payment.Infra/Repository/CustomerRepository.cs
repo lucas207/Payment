@@ -1,4 +1,4 @@
-﻿using Eice.Payment.Domain.Client;
+﻿using Eice.Payment.Domain.Customer;
 using MongoDB.Bson;
 using MongoDB.Driver;
 using System;
@@ -7,41 +7,41 @@ using System.Threading.Tasks;
 
 namespace Eice.Payment.Infra.Repository
 {
-    public class ClientRepository : IClienteRepository
+    public class CustomerRepository : ICustomerRepository
     {
-        private readonly IMongoCollection<Client> _clientes;
+        private readonly IMongoCollection<Customer> _clientes;
 
-        public ClientRepository(IMongoClient client)
+        public CustomerRepository(IMongoClient client)
         {
             var _database = client.GetDatabase("EicePagamentosDB");
-            _clientes = _database.GetCollection<Client>("Client");
+            _clientes = _database.GetCollection<Customer>("Client");
         }
 
-        public async Task<ObjectId> Create(Client entity)
+        public async Task<ObjectId> Create(Customer entity)
         {
             await _clientes.InsertOneAsync(entity);
             return entity.Id;
         }
 
-        public Task<Client> Get(ObjectId Id)
+        public Task<Customer> Get(ObjectId Id)
         {
-            var filter = Builders<Client>.Filter.Eq(c => c.Id, Id);
+            var filter = Builders<Customer>.Filter.Eq(c => c.Id, Id);
             var client = _clientes.Find(filter).FirstOrDefaultAsync();
 
             return client;
         }
 
-        public async Task<IEnumerable<Client>> GetAll()
+        public async Task<IEnumerable<Customer>> GetAll()
         {
             var clientes = await _clientes.Find(_ => true).ToListAsync();
 
             return clientes;
         }
 
-        public async Task<bool> Update(ObjectId Id, Client entity)
+        public async Task<bool> Update(ObjectId Id, Customer entity)
         {
-            var filter = Builders<Client>.Filter.Eq(c => c.Id, Id);
-            var update = Builders<Client>.Update
+            var filter = Builders<Customer>.Filter.Eq(c => c.Id, Id);
+            var update = Builders<Customer>.Update
                 .Set(c => c.Name, entity.Name)
                 .Set(c => c.TipoPessoa, entity.TipoPessoa)
                 .Set(c => c.CpfCnpj, entity.CpfCnpj);
@@ -52,7 +52,7 @@ namespace Eice.Payment.Infra.Repository
 
         public async Task<bool> Delete(ObjectId Id)
         {
-            var filter = Builders<Client>.Filter.Eq(c => c.Id, Id);
+            var filter = Builders<Customer>.Filter.Eq(c => c.Id, Id);
             var result = await _clientes.DeleteOneAsync(filter);
 
             return result.DeletedCount == 1;

@@ -2,9 +2,9 @@
 
 namespace Eice.Payment.API.Command
 {
-    public class ClientCreateCommandValidation : AbstractValidator<ClientCreateCommand>
+    public class CustomerCreateCommandValidation : AbstractValidator<CustomerCreateCommand>
     {
-        public ClientCreateCommandValidation()
+        public CustomerCreateCommandValidation()
         {
             RuleFor(client => client.Name).NotNull();
             //VALIDAR FORMATO CPFCNPJ

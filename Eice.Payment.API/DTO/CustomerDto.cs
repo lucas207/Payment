@@ -1,13 +1,14 @@
-﻿using Eice.Payment.Domain.Client;
+﻿using Eice.Payment.Domain.Customer;
 using System;
 
 namespace Eice.Payment.API.DTO
 {
-    public class ClientDto : Client
+    public class CustomerDto
     {
-        //public string Name { get; set; }
-        //public int CpfCnpj { get; set; }
-        //public ETipoPessoa TipoPessoa { get; set; }
+        public string Id { get; set; }
+        public string Name { get; set; }
+        public string CpfCnpj { get; set; }
+        public ETipoPessoa TipoPessoa { get; set; }
 
         public string CpfCnpjFormated
         {

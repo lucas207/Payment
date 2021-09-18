@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Eice.Payment.API.Query
 {
-    public class GetClientByIdQuery : IRequest<ClientDto>
+    public class GetClientByIdQuery : IRequest<CustomerDto>
     {
         public Guid Id { get; set; }
     }

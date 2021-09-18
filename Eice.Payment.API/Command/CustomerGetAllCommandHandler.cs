@@ -1,6 +1,6 @@
 ﻿using Eice.Payment.API.DTO;
 using Eice.Payment.API.Notification;
-using Eice.Payment.Domain.Client;
+using Eice.Payment.Domain.Customer;
 using MediatR;
 using System;
 using System.Collections.Generic;
@@ -10,15 +10,15 @@ using System.Threading.Tasks;
 
 namespace Eice.Payment.API.Command
 {
-    public class ClientGetAllCommandHandler : CommandHandler, IRequestHandler<ClientGetAllCommand, IEnumerable<ClientDto>>
+    public class CustomerGetAllCommandHandler : CommandHandler, IRequestHandler<CustomerGetAllCommand, IEnumerable<CustomerDto>>
     {
-        private readonly IClienteRepository _clienteRepository;
-        public ClientGetAllCommandHandler(IMediator bus, IClienteRepository clienteRepository) : base(bus)
+        private readonly ICustomerRepository _clienteRepository;
+        public CustomerGetAllCommandHandler(IMediator bus, ICustomerRepository clienteRepository) : base(bus)
         {
             _clienteRepository = clienteRepository;
         }
 
-        public async Task<IEnumerable<ClientDto>> Handle(ClientGetAllCommand request, CancellationToken cancellationToken)
+        public async Task<IEnumerable<CustomerDto>> Handle(CustomerGetAllCommand request, CancellationToken cancellationToken)
         {
             if (!request.IsValid()) { GetNotificationsErrors(request); return default; }
 
@@ -26,10 +26,10 @@ namespace Eice.Payment.API.Command
             {
                 var list = await _clienteRepository.GetAll();
 
-                List<ClientDto> resp = new List<ClientDto>();
+                List<CustomerDto> resp = new List<CustomerDto>();
                 foreach (var item in list)
                 {
-                    resp.Add(new ClientDto { Id = item.Id, CpfCnpj = item.CpfCnpj, Name = item.Name, TipoPessoa = item.TipoPessoa });
+                    resp.Add(new CustomerDto { Id = item.Id.ToString(), CpfCnpj = item.CpfCnpj, Name = item.Name, TipoPessoa = item.TipoPessoa });
                 }
 
                 return resp;

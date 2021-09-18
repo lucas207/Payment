@@ -1,5 +1,5 @@
 ﻿using Eice.Payment.API.Notification;
-using Eice.Payment.Domain.Client;
+using Eice.Payment.Domain.Customer;
 using MediatR;
 using System;
 using System.Threading;
@@ -7,15 +7,15 @@ using System.Threading.Tasks;
 
 namespace Eice.Payment.API.Command
 {
-    public class ClientCreateCommandHandler : CommandHandler, IRequestHandler<ClientCreateCommand, string>
+    public class CustomerCreateCommandHandler : CommandHandler, IRequestHandler<CustomerCreateCommand, string>
     {
-        private readonly IClienteRepository _clienteRepository;
-        public ClientCreateCommandHandler(IMediator bus, IClienteRepository clienteRepository) : base(bus)
+        private readonly ICustomerRepository _clienteRepository;
+        public CustomerCreateCommandHandler(IMediator bus, ICustomerRepository clienteRepository) : base(bus)
         {
             _clienteRepository = clienteRepository;
         }
 
-        public async Task<string> Handle(ClientCreateCommand request, CancellationToken cancellationToken)
+        public async Task<string> Handle(CustomerCreateCommand request, CancellationToken cancellationToken)
         {
             if (!request.IsValid()) { GetNotificationsErrors(request); return default; }
 
@@ -23,7 +23,7 @@ namespace Eice.Payment.API.Command
             {
                 
                 //metodo to map
-                Client entity = new Client();
+                Customer entity = new Customer();
                 entity.Name = request.Name;
                 entity.TipoPessoa = request.TipoPessoa;
                 entity.CpfCnpj = request.CpfCnpj;

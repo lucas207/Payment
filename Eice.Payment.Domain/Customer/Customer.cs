@@ -2,9 +2,9 @@
 using MongoDB.Bson.Serialization.Attributes;
 using System.ComponentModel.DataAnnotations;
 
-namespace Eice.Payment.Domain.Client
+namespace Eice.Payment.Domain.Customer
 {
-    public class Client
+    public class Customer
     {
         [BsonId]
         public ObjectId Id { get; }

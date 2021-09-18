@@ -11,29 +11,29 @@ namespace Eice.Payment.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ClientController : CustomBaseController
+    public class CustomerController : CustomBaseController
     {
         //private readonly ILogger<ClientController> _logger;
         private readonly IMediator _mediator;
 
-        public ClientController(IMediator mediator, INotificationHandler<ExceptionNotification> notifications) : base(notifications)
+        public CustomerController(IMediator mediator, INotificationHandler<ExceptionNotification> notifications) : base(notifications)
         {
             _mediator = mediator;
             //_logger = logger;
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateClient([FromBody] ClientCreateCommand command)
+        public async Task<IActionResult> CreateCustomer([FromBody] CustomerCreateCommand command)
         {
             var response = await _mediator.Send(command);
             return await ResponseAsync(Ok(new ResponseDto<string>() { Success = true, Data = response }));
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetAllClient()
+        public async Task<IActionResult> GetAllCustomer()
         {
-            var response = await _mediator.Send(new ClientGetAllCommand());
-            return await ResponseAsync(Ok(new ResponseDto<IEnumerable<ClientDto>>() { Success = true, Data = response }));
+            var response = await _mediator.Send(new CustomerGetAllCommand());
+            return await ResponseAsync(Ok(new ResponseDto<IEnumerable<CustomerDto>>() { Success = true, Data = response }));
         }
     }
 }
