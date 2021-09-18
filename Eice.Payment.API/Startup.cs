@@ -42,7 +42,8 @@ namespace Eice.Payment.API
 
             services.AddMediatR(typeof(Startup));
             services.AddScoped<INotificationHandler<ExceptionNotification>, ExceptionNotificationHandler>();
-            services.AddTransient<ICustomerRepository, CustomerRepository>();
+            services.AddTransient<ICustomerCommandRepository, CustomerCommandRepository>();
+            services.AddTransient<ICustomerQueryRepository, CustomerQueryRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

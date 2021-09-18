@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace Eice.Payment.API.Query
 {
-    public class GetClientByIdQueryHandler
+    public class Query
     {
     }
 }

@@ -1,6 +1,7 @@
 ﻿using Eice.Payment.API.Command;
 using Eice.Payment.API.DTO;
 using Eice.Payment.API.Notification;
+using Eice.Payment.API.Query;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -32,7 +33,7 @@ namespace Eice.Payment.API.Controllers
         [HttpGet]
         public async Task<IActionResult> GetAllCustomer()
         {
-            var response = await _mediator.Send(new CustomerGetAllCommand());
+            var response = await _mediator.Send(new CustomerGetAllQuery());
             return await ResponseAsync(Ok(new ResponseDto<IEnumerable<CustomerDto>>() { Success = true, Data = response }));
         }
     }

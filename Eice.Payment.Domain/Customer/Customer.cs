@@ -7,7 +7,7 @@ namespace Eice.Payment.Domain.Customer
     public class Customer
     {
         [BsonId]
-        public ObjectId Id { get; }
+        public ObjectId Id { get; set; }
         [Required]
         public string Name { get; set; }
         public string CpfCnpj { get; set; }

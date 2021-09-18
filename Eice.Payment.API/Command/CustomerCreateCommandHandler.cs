@@ -9,10 +9,10 @@ namespace Eice.Payment.API.Command
 {
     public class CustomerCreateCommandHandler : CommandHandler, IRequestHandler<CustomerCreateCommand, string>
     {
-        private readonly ICustomerRepository _clienteRepository;
-        public CustomerCreateCommandHandler(IMediator bus, ICustomerRepository clienteRepository) : base(bus)
+        private readonly ICustomerCommandRepository _customerRepository;
+        public CustomerCreateCommandHandler(IMediator bus, ICustomerCommandRepository customerRepository) : base(bus)
         {
-            _clienteRepository = clienteRepository;
+            _customerRepository = customerRepository;
         }
 
         public async Task<string> Handle(CustomerCreateCommand request, CancellationToken cancellationToken)
@@ -27,7 +27,7 @@ namespace Eice.Payment.API.Command
                 entity.Name = request.Name;
                 entity.TipoPessoa = request.TipoPessoa;
                 entity.CpfCnpj = request.CpfCnpj;
-                await _clienteRepository.Create(entity);
+                await _customerRepository.Create(entity);
 
                 return entity.Id.ToString();
 

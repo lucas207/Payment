@@ -1,15 +1,15 @@
 ﻿using MongoDB.Bson;
+using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace Eice.Payment.Domain.Customer
 {
-    public interface ICustomerRepository
+    public interface ICustomerQueryRepository
     {
-        Task<ObjectId> Create(Customer entity);
         Task<Customer> Get(ObjectId Id);
         Task<IEnumerable<Customer>> GetAll();
-        Task<bool> Update(ObjectId Id, Customer entity);
-        Task<bool> Delete(ObjectId Id);
     }
 }

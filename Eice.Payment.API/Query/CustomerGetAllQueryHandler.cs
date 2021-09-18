@@ -8,23 +8,24 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Eice.Payment.API.Command
+namespace Eice.Payment.API.Query
 {
-    public class CustomerGetAllCommandHandler : CommandHandler, IRequestHandler<CustomerGetAllCommand, IEnumerable<CustomerDto>>
+    public class CustomerGetAllQueryHandler : QueryHandler, IRequestHandler<CustomerGetAllQuery, IEnumerable<CustomerDto>>
     {
-        private readonly ICustomerRepository _clienteRepository;
-        public CustomerGetAllCommandHandler(IMediator bus, ICustomerRepository clienteRepository) : base(bus)
+        private readonly ICustomerQueryRepository _customerRepository;
+
+        public CustomerGetAllQueryHandler(IMediator bus, ICustomerQueryRepository customerRepository) : base(bus)
         {
-            _clienteRepository = clienteRepository;
+            _customerRepository = customerRepository;
         }
 
-        public async Task<IEnumerable<CustomerDto>> Handle(CustomerGetAllCommand request, CancellationToken cancellationToken)
+        public async Task<IEnumerable<CustomerDto>> Handle(CustomerGetAllQuery request, CancellationToken cancellationToken)
         {
-            if (!request.IsValid()) { GetNotificationsErrors(request); return default; }
+            //if (!request.IsValid()) { GetNotificationsErrors(request); return default; }
 
             try
             {
-                var list = await _clienteRepository.GetAll();
+                var list = await _customerRepository.GetAll();
 
                 List<CustomerDto> resp = new List<CustomerDto>();
                 foreach (var item in list)

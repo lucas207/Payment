@@ -1,17 +1,15 @@
 ﻿using Eice.Payment.Domain.Customer;
 using MongoDB.Bson;
 using MongoDB.Driver;
-using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace Eice.Payment.Infra.Repository
 {
-    public class CustomerRepository : ICustomerRepository
+    public class CustomerCommandRepository : ICustomerCommandRepository
     {
         private readonly IMongoCollection<Customer> _clientes;
 
-        public CustomerRepository(IMongoClient client)
+        public CustomerCommandRepository(IMongoClient client)
         {
             var _database = client.GetDatabase("EicePagamentosDB");
             _clientes = _database.GetCollection<Customer>("Client");
@@ -21,21 +19,6 @@ namespace Eice.Payment.Infra.Repository
         {
             await _clientes.InsertOneAsync(entity);
             return entity.Id;
-        }
-
-        public Task<Customer> Get(ObjectId Id)
-        {
-            var filter = Builders<Customer>.Filter.Eq(c => c.Id, Id);
-            var client = _clientes.Find(filter).FirstOrDefaultAsync();
-
-            return client;
-        }
-
-        public async Task<IEnumerable<Customer>> GetAll()
-        {
-            var clientes = await _clientes.Find(_ => true).ToListAsync();
-
-            return clientes;
         }
 
         public async Task<bool> Update(ObjectId Id, Customer entity)

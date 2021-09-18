@@ -7,8 +7,11 @@ using System.Threading.Tasks;
 
 namespace Eice.Payment.API.Query
 {
-    public class GetClientByIdQuery : IRequest<CustomerDto>
+    public class CustomerGetAllQuery : Query, IRequest<IEnumerable<CustomerDto>>
     {
-        public Guid Id { get; set; }
+        //public override bool IsValid()
+        //{
+        //    return true;
+        //}
     }
 }
