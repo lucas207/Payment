@@ -8,4 +8,8 @@
     <PackageReference Include="MongoDB.Driver" Version="2.13.1" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Interface\Repository\" />
+  </ItemGroup>
+
 </Project>

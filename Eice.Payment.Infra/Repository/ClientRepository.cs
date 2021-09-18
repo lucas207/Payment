@@ -7,9 +7,8 @@ using System.Threading.Tasks;
 
 namespace Eice.Payment.Infra.Repository
 {
-    public class ClientRepository : IClienteRepository //Repository<ClientModel>,
+    public class ClientRepository : IClienteRepository
     {
-        private readonly MongoDbContext dbContext;
         private readonly IMongoCollection<Client> _clientes;
 
         public ClientRepository(IMongoClient client)
