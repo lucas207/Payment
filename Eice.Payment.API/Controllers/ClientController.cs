@@ -4,6 +4,7 @@ using Eice.Payment.API.Notification;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace Eice.Payment.API.Controllers
@@ -25,7 +26,14 @@ namespace Eice.Payment.API.Controllers
         public async Task<IActionResult> CreateClient([FromBody] ClientCreateCommand command)
         {
             var response = await _mediator.Send(command);
-            return await ResponseAsync(Ok(new ResponseDto<Guid>() { Success = true, Data = response }));
+            return await ResponseAsync(Ok(new ResponseDto<string>() { Success = true, Data = response }));
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> GetAllClient()
+        {
+            var response = await _mediator.Send(new ClientGetAllCommand());
+            return await ResponseAsync(Ok(new ResponseDto<IEnumerable<ClientDto>>() { Success = true, Data = response }));
         }
     }
 }

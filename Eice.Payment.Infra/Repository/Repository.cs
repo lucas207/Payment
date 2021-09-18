@@ -5,6 +5,7 @@ using System.Collections.Generic;
 
 namespace Eice.Payment.Infra.Repository
 {
+    //DELETA ISSO?
     public class Repository<TEntity> : IRepository<TEntity> where TEntity : BaseModel
     {
         private readonly MongoDbContext dbContext;

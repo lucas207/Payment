@@ -12,6 +12,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
+using MongoDB.Driver;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -31,15 +32,18 @@ namespace Eice.Payment.API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            MongoDbContext.ConnectionString = Configuration.GetSection("MongoConnection:ConnectionString").Value;
-            MongoDbContext.DatabaseName = Configuration.GetSection("MongoConnection:Database").Value;
-            MongoDbContext.IsSSL = Convert.ToBoolean(this.Configuration.GetSection("MongoConnection:IsSSL").Value);
+            //MongoDbContext.ConnectionString = Configuration.GetSection("MongoConnection:ConnectionString").Value;
+            //MongoDbContext.DatabaseName = Configuration.GetSection("MongoConnection:Database").Value;
+            //MongoDbContext.IsSSL = Convert.ToBoolean(this.Configuration.GetSection("MongoConnection:IsSSL").Value);
 
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Eice.Payment.API", Version = "v1" });
             });
+
+            services.AddSingleton<IMongoClient, MongoClient>(sp => new MongoClient(Configuration.GetConnectionString("MongoDb")));
+
             services.AddMediatR(typeof(Startup));
             services.AddScoped<INotificationHandler<ExceptionNotification>, ExceptionNotificationHandler>();
             services.AddScoped<IClienteRepository, ClientRepository>();

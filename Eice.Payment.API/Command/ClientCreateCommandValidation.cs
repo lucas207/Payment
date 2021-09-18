@@ -7,6 +7,7 @@ namespace Eice.Payment.API.Command
         public ClientCreateCommandValidation()
         {
             RuleFor(client => client.Name).NotNull();
+            //VALIDAR FORMATO CPFCNPJ
         }
     }
 }

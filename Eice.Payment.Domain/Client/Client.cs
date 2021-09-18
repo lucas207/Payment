@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Eice.Payment.Domain.Client
 {
-    public class ClientModel : BaseModel
+    public class Client : BaseModel
     {
         //public ClientModel(string name, int cpfCnpj)
         //{
@@ -20,7 +20,7 @@ namespace Eice.Payment.Domain.Client
 
         [Required]
         public string Name { get; set; }
-        public int CpfCnpj { get; set; }
+        public string CpfCnpj { get; set; }
         public ETipoPessoa TipoPessoa { get; set; }
 
     }

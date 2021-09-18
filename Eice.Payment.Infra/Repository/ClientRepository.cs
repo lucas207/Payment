@@ -1,47 +1,49 @@
 ﻿using Eice.Payment.Domain.Client;
-using Eice.Payment.Domain.Interface.Repository;
+using MongoDB.Bson;
+using MongoDB.Driver;
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace Eice.Payment.Infra.Repository
 {
-    public class ClientRepository : Repository<ClientModel>, IClienteRepository
+    public class ClientRepository : IClienteRepository //Repository<ClientModel>,
     {
         private readonly MongoDbContext dbContext;
+        private readonly IMongoCollection<Client> _clientes;
 
-        public ClientRepository()
+        public ClientRepository(IMongoClient client)
         {
-            dbContext = new MongoDbContext();
+            var _database = client.GetDatabase("EicePagamentosDB");
+            _clientes = _database.GetCollection<Client>("Client");
         }
 
-        public bool Delete(ClientModel entity)
+        public async Task<ObjectId> Create(Client entity)
         {
-            throw new NotImplementedException();
+            await _clientes.InsertOneAsync(entity);
+            return entity.Id;
         }
 
-        public ClientModel Get(int Id)
-        {
-            throw new NotImplementedException();
-        }
-
-        public IEnumerable<ClientModel> GetAll(int Id)
+        public Task<Client> Get(ObjectId Id)
         {
             throw new NotImplementedException();
         }
 
-        public bool Save(ClientModel entity)
+        public async Task<IEnumerable<Client>> GetAll()
         {
-            entity.Id = Guid.NewGuid();
-            entity.CreatedAt = DateTime.Now;
+            var clientes = await _clientes.Find(_ => true).ToListAsync();
 
-            dbContext.Clientes.InsertOne(entity);
-            return true;
+            return clientes;
         }
 
-        public bool Update(ClientModel entity)
+        public Task<bool> Update(ObjectId Id, Client entity)
         {
             throw new NotImplementedException();
         }
 
+        public Task<bool> Delete(ObjectId Id)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

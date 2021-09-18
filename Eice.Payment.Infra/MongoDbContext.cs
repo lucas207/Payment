@@ -30,12 +30,6 @@ namespace Eice.Payment.Infra
             }
         }
 
-        public IMongoCollection<ClientModel> Clientes
-        {
-            get
-            {
-                return _database.GetCollection<ClientModel>("Client");
-            }
-        }
+        
     }
 }
