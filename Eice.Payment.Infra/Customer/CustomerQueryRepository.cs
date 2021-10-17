@@ -1,33 +1,30 @@
 ﻿using Eice.Payment.Domain.Customer;
 using MongoDB.Bson;
 using MongoDB.Driver;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
-namespace Eice.Payment.Infra.Repository
+namespace Eice.Payment.Infra.Customer
 {
     public class CustomerQueryRepository : ICustomerQueryRepository
     {
-        private readonly IMongoCollection<Customer> _clientes;
+        private readonly IMongoCollection<CustomerEntity> _clientes;
 
         public CustomerQueryRepository(IMongoClient client)
         {
             var _database = client.GetDatabase("EicePagamentosDB");
-            _clientes = _database.GetCollection<Customer>("Client");
+            _clientes = _database.GetCollection<CustomerEntity>("Client");
         }
 
-        public Task<Customer> Get(ObjectId Id)
+        public Task<CustomerEntity> Get(ObjectId Id)
         {
-            var filter = Builders<Customer>.Filter.Eq(c => c.Id, Id);
+            var filter = Builders<CustomerEntity>.Filter.Eq(c => c.Id, Id);
             var client = _clientes.Find(filter).FirstOrDefaultAsync();
 
             return client;
         }
 
-        public async Task<IEnumerable<Customer>> GetAll()
+        public async Task<IEnumerable<CustomerEntity>> GetAll()
         {
             var clientes = await _clientes.Find(_ => true).ToListAsync();
 

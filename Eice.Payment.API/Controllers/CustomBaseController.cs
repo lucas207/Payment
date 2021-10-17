@@ -8,12 +8,14 @@ namespace Eice.Payment.API.Controllers
 {
     public class CustomBaseController : ControllerBase
     {
+        protected readonly IMediator _mediator;
         private readonly ExceptionNotificationHandler _notifications;
 
         protected IEnumerable<ExceptionNotification> Notifications => _notifications.GetNotifications();
 
-        protected CustomBaseController(INotificationHandler<ExceptionNotification> notifications)
+        protected CustomBaseController(IMediator mediator, INotificationHandler<ExceptionNotification> notifications)
         {
+            _mediator = mediator;
             _notifications = (ExceptionNotificationHandler)notifications;
         }
 

@@ -21,12 +21,16 @@ namespace Eice.Payment.API.Command
 
             try
             {
-                
+                //Validar request.PartnerId existe
+                //Validar request.AuthenticationKey pertence ao PartnerId
+
                 //metodo to map
-                Customer entity = new Customer();
-                entity.Name = request.Name;
-                entity.TipoPessoa = request.TipoPessoa;
-                entity.CpfCnpj = request.CpfCnpj;
+                CustomerEntity entity = new()
+                {
+                    PartnerId = request.PartnerId,
+                    Cpf = request.Cpf
+                };
+
                 await _customerRepository.Create(entity);
 
                 return entity.Id.ToString();

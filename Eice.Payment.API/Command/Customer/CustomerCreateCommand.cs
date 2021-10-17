@@ -1,13 +1,12 @@
-﻿using Eice.Payment.Domain.Customer;
-using MediatR;
+﻿using MediatR;
 
 namespace Eice.Payment.API.Command
 {
     public class CustomerCreateCommand : Command, IRequest<string>
     {
-        public string Name { get; set; }
-        public string CpfCnpj { get; set; }
-        public ETipoPessoa TipoPessoa { get; set; }
+        public string PartnerId { get; set; }
+        public string AuthenticationKey { get; set; }
+        public string Cpf { get; set; }
 
         public override bool IsValid()
         {

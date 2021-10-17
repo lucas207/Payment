@@ -1,10 +1,9 @@
 ﻿using Eice.Payment.API.Command;
 using Eice.Payment.API.DTO;
 using Eice.Payment.API.Notification;
-using Eice.Payment.API.Query;
+using Eice.Payment.API.Query.Customer;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -14,13 +13,8 @@ namespace Eice.Payment.API.Controllers
     [ApiController]
     public class CustomerController : CustomBaseController
     {
-        //private readonly ILogger<ClientController> _logger;
-        private readonly IMediator _mediator;
-
-        public CustomerController(IMediator mediator, INotificationHandler<ExceptionNotification> notifications) : base(notifications)
+        public CustomerController(IMediator mediator, INotificationHandler<ExceptionNotification> notifications) : base(mediator, notifications)
         {
-            _mediator = mediator;
-            //_logger = logger;
         }
 
         [HttpPost]

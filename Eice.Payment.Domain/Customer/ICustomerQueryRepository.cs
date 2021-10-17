@@ -9,7 +9,7 @@ namespace Eice.Payment.Domain.Customer
 {
     public interface ICustomerQueryRepository
     {
-        Task<Customer> Get(ObjectId Id);
-        Task<IEnumerable<Customer>> GetAll();
+        Task<CustomerEntity> Get(ObjectId Id);
+        Task<IEnumerable<CustomerEntity>> GetAll();
     }
 }

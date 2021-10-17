@@ -8,7 +8,7 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Eice.Payment.API.Query
+namespace Eice.Payment.API.Query.Customer
 {
     public class CustomerGetAllQueryHandler : QueryHandler, IRequestHandler<CustomerGetAllQuery, IEnumerable<CustomerDto>>
     {
@@ -30,7 +30,13 @@ namespace Eice.Payment.API.Query
                 List<CustomerDto> resp = new List<CustomerDto>();
                 foreach (var item in list)
                 {
-                    resp.Add(new CustomerDto { Id = item.Id.ToString(), CpfCnpj = item.CpfCnpj, Name = item.Name, TipoPessoa = item.TipoPessoa });
+                    resp.Add(new CustomerDto
+                    {
+                        Id = item.Id.ToString(),
+                        Cpf = item.Cpf,
+                        PartnerId = item.PartnerId,
+                        CreationTime = item.Id.CreationTime
+                    });
                 }
 
                 return resp;

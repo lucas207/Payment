@@ -1,23 +1,19 @@
-﻿using Eice.Payment.Domain.Customer;
-using System;
+﻿using System;
 
 namespace Eice.Payment.API.DTO
 {
     public class CustomerDto
     {
         public string Id { get; set; }
-        public string Name { get; set; }
-        public string CpfCnpj { get; set; }
-        public ETipoPessoa TipoPessoa { get; set; }
+        public string PartnerId { get; set; }
+        public string Cpf { get; set; }
+        public DateTime CreationTime { get; set; }
 
-        public string CpfCnpjFormated
+        public string CpfFormated
         {
             get
             {
-                if (TipoPessoa == ETipoPessoa.Fisica)
-                    return Convert.ToUInt64(CpfCnpj).ToString(@"000\.000\.000\-00");
-                else
-                    return Convert.ToUInt64(CpfCnpj).ToString(@"00\.000\.000\/0000\-00");
+                return Convert.ToUInt64(Cpf).ToString(@"000\.000\.000\-00");
             }
         }
     }

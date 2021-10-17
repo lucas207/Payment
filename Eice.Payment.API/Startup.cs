@@ -1,22 +1,16 @@
 using Eice.Payment.API.Notification;
 using Eice.Payment.Domain.Customer;
-using Eice.Payment.Infra;
-using Eice.Payment.Infra.Repository;
+using Eice.Payment.Domain.Partner;
+using Eice.Payment.Infra.Customer;
+using Eice.Payment.Infra.Partner;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using MongoDB.Driver;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace Eice.Payment.API
 {
@@ -44,6 +38,7 @@ namespace Eice.Payment.API
             services.AddScoped<INotificationHandler<ExceptionNotification>, ExceptionNotificationHandler>();
             services.AddTransient<ICustomerCommandRepository, CustomerCommandRepository>();
             services.AddTransient<ICustomerQueryRepository, CustomerQueryRepository>();
+            services.AddTransient<IPartnerQueryRepository, PartnerQueryRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

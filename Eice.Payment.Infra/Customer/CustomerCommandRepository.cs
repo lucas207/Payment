@@ -3,31 +3,31 @@ using MongoDB.Bson;
 using MongoDB.Driver;
 using System.Threading.Tasks;
 
-namespace Eice.Payment.Infra.Repository
+namespace Eice.Payment.Infra.Customer
 {
     public class CustomerCommandRepository : ICustomerCommandRepository
     {
-        private readonly IMongoCollection<Customer> _clientes;
+        private readonly IMongoCollection<CustomerEntity> _clientes;
 
         public CustomerCommandRepository(IMongoClient client)
         {
             var _database = client.GetDatabase("EicePagamentosDB");
-            _clientes = _database.GetCollection<Customer>("Client");
+            _clientes = _database.GetCollection<CustomerEntity>("Client");
         }
 
-        public async Task<ObjectId> Create(Customer entity)
+        public async Task<ObjectId> Create(CustomerEntity entity)
         {
             await _clientes.InsertOneAsync(entity);
             return entity.Id;
         }
 
-        public async Task<bool> Update(ObjectId Id, Customer entity)
+        public async Task<bool> Update(ObjectId Id, CustomerEntity entity)
         {
-            var filter = Builders<Customer>.Filter.Eq(c => c.Id, Id);
-            var update = Builders<Customer>.Update
-                .Set(c => c.Name, entity.Name)
-                .Set(c => c.TipoPessoa, entity.TipoPessoa)
-                .Set(c => c.CpfCnpj, entity.CpfCnpj);
+            var filter = Builders<CustomerEntity>.Filter.Eq(c => c.Id, Id);
+            var update = Builders<CustomerEntity>.Update
+                .Set(c => c.PartnerId, entity.PartnerId)
+                //.Set(c => c.TipoPessoa, entity.TipoPessoa)
+                .Set(c => c.Cpf, entity.Cpf);
             var result = await _clientes.UpdateOneAsync(filter, update);
 
             return result.ModifiedCount == 1;
@@ -35,7 +35,7 @@ namespace Eice.Payment.Infra.Repository
 
         public async Task<bool> Delete(ObjectId Id)
         {
-            var filter = Builders<Customer>.Filter.Eq(c => c.Id, Id);
+            var filter = Builders<CustomerEntity>.Filter.Eq(c => c.Id, Id);
             var result = await _clientes.DeleteOneAsync(filter);
 
             return result.DeletedCount == 1;

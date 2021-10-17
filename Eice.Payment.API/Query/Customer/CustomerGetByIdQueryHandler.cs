@@ -7,7 +7,7 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Eice.Payment.API.Query
+namespace Eice.Payment.API.Query.Customer
 {
     public class CustomerGetByIdQueryHandler : QueryHandler, IRequestHandler<CustomerGetByIdQuery, CustomerDto>
     {
