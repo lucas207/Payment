@@ -9,13 +9,10 @@ using System.Threading.Tasks;
 
 namespace Eice.Payment.API.Query.Partner
 {
-    public class PartnerGetAllQueryHandler : QueryHandler, IRequestHandler<PartnerGetAllQuery, IEnumerable<PartnerDto>>
+    public class PartnerGetAllQueryHandler : QueryHandler<PartnerEntity>, IRequestHandler<PartnerGetAllQuery, IEnumerable<PartnerDto>>
     {
-        private readonly IPartnerQueryRepository _partnerRepository;
-
-        public PartnerGetAllQueryHandler(IMediator bus, IPartnerQueryRepository partnerRepository) : base(bus)
+        public PartnerGetAllQueryHandler(IMediator bus, IPartnerQueryRepository partnerRepository) : base(bus, partnerRepository)
         {
-            _partnerRepository = partnerRepository;
         }
 
         public async Task<IEnumerable<PartnerDto>> Handle(PartnerGetAllQuery request, CancellationToken cancellationToken)
@@ -24,7 +21,7 @@ namespace Eice.Payment.API.Query.Partner
 
             try
             {
-                var list = await _partnerRepository.GetAll();
+                var list = await _queryRepository.GetAll();
 
                 List<PartnerDto> resp = new List<PartnerDto>();
                 foreach (var item in list)

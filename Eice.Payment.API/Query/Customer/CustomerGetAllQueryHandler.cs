@@ -10,13 +10,10 @@ using System.Threading.Tasks;
 
 namespace Eice.Payment.API.Query.Customer
 {
-    public class CustomerGetAllQueryHandler : QueryHandler, IRequestHandler<CustomerGetAllQuery, IEnumerable<CustomerDto>>
+    public class CustomerGetAllQueryHandler : QueryHandler<CustomerEntity>, IRequestHandler<CustomerGetAllQuery, IEnumerable<CustomerDto>>
     {
-        private readonly ICustomerQueryRepository _customerRepository;
-
-        public CustomerGetAllQueryHandler(IMediator bus, ICustomerQueryRepository customerRepository) : base(bus)
+        public CustomerGetAllQueryHandler(IMediator bus, ICustomerQueryRepository customerRepository) : base(bus, customerRepository)
         {
-            _customerRepository = customerRepository;
         }
 
         public async Task<IEnumerable<CustomerDto>> Handle(CustomerGetAllQuery request, CancellationToken cancellationToken)
@@ -25,7 +22,7 @@ namespace Eice.Payment.API.Query.Customer
 
             try
             {
-                var list = await _customerRepository.GetAll();
+                IEnumerable<CustomerEntity> list = await _queryRepository.GetAll();
 
                 List<CustomerDto> resp = new List<CustomerDto>();
                 foreach (var item in list)

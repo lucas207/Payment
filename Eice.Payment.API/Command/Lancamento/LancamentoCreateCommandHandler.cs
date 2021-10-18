@@ -1,21 +1,20 @@
 ﻿using Eice.Payment.API.Notification;
-using Eice.Payment.Domain;
-using Eice.Payment.Domain.Customer;
+using Eice.Payment.Domain.Lancamento;
 using MediatR;
 using System;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Eice.Payment.API.Command
+namespace Eice.Payment.API.Command.Lancamento
 {
-    public class CustomerCreateCommandHandler : CommandHandler<CustomerEntity>, IRequestHandler<CustomerCreateCommand, string>
+    public class LancamentoCreateCommandHandler : CommandHandler<LancamentoEntity>, IRequestHandler<LancamentoCreateCommand, string>
     {
-        public CustomerCreateCommandHandler(IMediator bus, ICustomerCommandRepository customerRepository)
-            : base(bus, customerRepository)
+        public LancamentoCreateCommandHandler(IMediator bus, ILancamentoCommandRepository lancamentoCommandRepository) 
+            : base(bus, lancamentoCommandRepository)
         {
         }
 
-        public async Task<string> Handle(CustomerCreateCommand request, CancellationToken cancellationToken)
+        public async Task<string> Handle(LancamentoCreateCommand request, CancellationToken cancellationToken)
         {
             if (!request.IsValid()) { GetNotificationsErrors(request); return default; }
 
@@ -25,10 +24,10 @@ namespace Eice.Payment.API.Command
                 //Validar request.AuthenticationKey pertence ao PartnerId
 
                 //metodo to map
-                CustomerEntity entity = new()
+                LancamentoEntity entity = new()
                 {
-                    PartnerId = request.PartnerId,
-                    Cpf = request.Cpf
+                    CustomerId = request.CustomerId,
+                    Quantity = request.Quantity
                 };
 
                 await _commandRepository.Create(entity);

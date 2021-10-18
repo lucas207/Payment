@@ -9,13 +9,10 @@ using System.Threading.Tasks;
 
 namespace Eice.Payment.API.Query.Customer
 {
-    public class CustomerGetByIdQueryHandler : QueryHandler, IRequestHandler<CustomerGetByIdQuery, CustomerDto>
+    public class CustomerGetByIdQueryHandler : QueryHandler<CustomerEntity>, IRequestHandler<CustomerGetByIdQuery, CustomerDto>
     {
-        private readonly ICustomerQueryRepository _customerRepository;
-
-        public CustomerGetByIdQueryHandler(IMediator bus, ICustomerQueryRepository customerRepository) : base(bus)
+        public CustomerGetByIdQueryHandler(IMediator bus, ICustomerQueryRepository customerRepository) : base(bus, customerRepository)
         {
-            _customerRepository = customerRepository;
         }
 
         public async Task<CustomerDto> Handle(CustomerGetByIdQuery request, CancellationToken cancellationToken)

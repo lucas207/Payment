@@ -1,19 +1,17 @@
-﻿using Eice.Payment.API.Notification;
+﻿using Eice.Payment.Domain;
 using MediatR;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace Eice.Payment.API.Query
 {
-    public class QueryHandler
+    public class QueryHandler<T>
     {
         protected readonly IMediator _bus;
+        protected readonly IQueryRepository<T> _queryRepository;
 
-        public QueryHandler(IMediator bus)
+        public QueryHandler(IMediator bus, IQueryRepository<T> queryRepository)
         {
             _bus = bus;
+            _queryRepository = queryRepository;
         }
 
         //por enquanto não

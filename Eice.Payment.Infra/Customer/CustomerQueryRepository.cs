@@ -8,25 +8,25 @@ namespace Eice.Payment.Infra.Customer
 {
     public class CustomerQueryRepository : ICustomerQueryRepository
     {
-        private readonly IMongoCollection<CustomerEntity> _clientes;
+        private readonly IMongoCollection<CustomerEntity> _collection;
 
         public CustomerQueryRepository(IMongoClient client)
         {
             var _database = client.GetDatabase("EicePagamentosDB");
-            _clientes = _database.GetCollection<CustomerEntity>("Client");
+            _collection = _database.GetCollection<CustomerEntity>("Client");
         }
 
         public Task<CustomerEntity> Get(ObjectId Id)
         {
             var filter = Builders<CustomerEntity>.Filter.Eq(c => c.Id, Id);
-            var client = _clientes.Find(filter).FirstOrDefaultAsync();
+            var client = _collection.Find(filter).FirstOrDefaultAsync();
 
             return client;
         }
 
         public async Task<IEnumerable<CustomerEntity>> GetAll()
         {
-            var clientes = await _clientes.Find(_ => true).ToListAsync();
+            var clientes = await _collection.Find(_ => true).ToListAsync();
 
             return clientes;
         }

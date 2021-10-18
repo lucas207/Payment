@@ -8,24 +8,24 @@ namespace Eice.Payment.Infra.Partner
 {
     public class PartnerQueryRepository : IPartnerQueryRepository
     {
-        private readonly IMongoCollection<PartnerEntity> _partners;
+        private readonly IMongoCollection<PartnerEntity> _collection;
         public PartnerQueryRepository(IMongoClient client)
         {
             var _database = client.GetDatabase("EicePagamentosDB");
-            _partners = _database.GetCollection<PartnerEntity>("Partner");
+            _collection = _database.GetCollection<PartnerEntity>("Partner");
         }
 
         public Task<PartnerEntity> Get(ObjectId Id)
         {
             var filter = Builders<PartnerEntity>.Filter.Eq(c => c.Id, Id);
-            var client = _partners.Find(filter).FirstOrDefaultAsync();
+            var client = _collection.Find(filter).FirstOrDefaultAsync();
 
             return client;
         }
 
         public async Task<IEnumerable<PartnerEntity>> GetAll()
         {
-            var all = await _partners.Find(_ => true).ToListAsync();
+            var all = await _collection.Find(_ => true).ToListAsync();
 
             return all;
         }

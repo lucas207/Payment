@@ -1,12 +1,6 @@
-﻿using MongoDB.Bson;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-
-namespace Eice.Payment.Domain.Partner
+﻿namespace Eice.Payment.Domain.Partner
 {
-    public interface IPartnerQueryRepository
+    public interface IPartnerQueryRepository : IQueryRepository<PartnerEntity>
     {
-        Task<PartnerEntity> Get(ObjectId Id);
-        Task<IEnumerable<PartnerEntity>> GetAll();
     }
 }

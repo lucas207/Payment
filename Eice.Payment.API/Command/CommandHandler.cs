@@ -1,4 +1,5 @@
 ﻿using Eice.Payment.API.Notification;
+using Eice.Payment.Domain;
 using MediatR;
 using System;
 using System.Collections.Generic;
@@ -7,13 +8,15 @@ using System.Threading.Tasks;
 
 namespace Eice.Payment.API.Command
 {
-    public class CommandHandler
+    public class CommandHandler<T>
     {
         protected readonly IMediator _bus;
+        protected readonly ICommandRepository<T> _commandRepository;
 
-        public CommandHandler(IMediator bus)
+        public CommandHandler(IMediator bus, ICommandRepository<T> commandRepository)
         {
             _bus = bus;
+            _commandRepository = commandRepository;
         }
         public void GetNotificationsErrors(Command command)
         {
