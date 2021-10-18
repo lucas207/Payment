@@ -1,5 +1,7 @@
-﻿using MongoDB.Bson;
+﻿using Eice.Payment.Domain.Lancamento;
+using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace Eice.Payment.Domain.Customer
@@ -13,6 +15,10 @@ namespace Eice.Payment.Domain.Customer
         [Required]
         public string Cpf { get; set; }
 
+        public int SaldoAtual { get; set; }
+        public List<LancamentoEntity> Lancamento { get; set; } = new List<LancamentoEntity>();
+        //bool possui moedas em outras instituições
+        //bool permirtir negociar moedas desse partner
     }
 
 }

@@ -23,6 +23,13 @@ namespace Eice.Payment.Infra.Partner
             return client;
         }
 
+        public Task<PartnerEntity> Get(string Id)
+        {
+            var filter = Builders<PartnerEntity>.Filter.Eq(c => c.Id, new ObjectId(Id));
+            var client = _collection.Find(filter).FirstOrDefaultAsync();
+            return client;
+        }
+
         public async Task<IEnumerable<PartnerEntity>> GetAll()
         {
             var all = await _collection.Find(_ => true).ToListAsync();

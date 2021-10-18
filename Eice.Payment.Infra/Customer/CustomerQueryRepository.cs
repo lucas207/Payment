@@ -20,14 +20,19 @@ namespace Eice.Payment.Infra.Customer
         {
             var filter = Builders<CustomerEntity>.Filter.Eq(c => c.Id, Id);
             var client = _collection.Find(filter).FirstOrDefaultAsync();
+            return client;
+        }
 
+        public Task<CustomerEntity> Get(string Id)
+        {
+            var filter = Builders<CustomerEntity>.Filter.Eq(c => c.Id, new ObjectId(Id));
+            var client = _collection.Find(filter).FirstOrDefaultAsync();
             return client;
         }
 
         public async Task<IEnumerable<CustomerEntity>> GetAll()
         {
             var clientes = await _collection.Find(_ => true).ToListAsync();
-
             return clientes;
         }
 

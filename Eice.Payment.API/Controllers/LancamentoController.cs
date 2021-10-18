@@ -4,7 +4,6 @@ using Eice.Payment.API.Notification;
 using Eice.Payment.API.Query.Lancamento;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace Eice.Payment.API.Controllers
@@ -22,7 +21,7 @@ namespace Eice.Payment.API.Controllers
         public async Task<IActionResult> CreateLancamento([FromBody] LancamentoCreateCommand command)
         {
             var response = await _mediator.Send(command);
-            return await ResponseAsync(Ok(new ResponseDto<string>() { Success = true, Data = response }));
+            return await ResponseAsync(Ok(new ResponseDto<bool>() { Success = true, Data = response }));
         }
 
         //Autenticar por partner
