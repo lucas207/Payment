@@ -6,9 +6,5 @@ namespace Eice.Payment.API.Query.Customer
 {
     public class CustomerGetAllQuery : Query, IRequest<IEnumerable<CustomerDto>>
     {
-        //public override bool IsValid()
-        //{
-        //    return true;
-        //}
     }
 }

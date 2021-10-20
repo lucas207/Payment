@@ -13,7 +13,7 @@ namespace Eice.Payment.Infra.Customer
         public CustomerCommandRepository(IMongoClient client)
         {
             var _database = client.GetDatabase("EicePagamentosDB");
-            _collection = _database.GetCollection<CustomerEntity>("Client");
+            _collection = _database.GetCollection<CustomerEntity>("Customer");
         }
 
         public async Task<ObjectId> Create(CustomerEntity entity)

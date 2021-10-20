@@ -10,5 +10,10 @@ namespace Eice.Payment.API.Query.Customer
     public class CustomerGetByIdQuery : IRequest<CustomerDto>
     {
         public Guid Id { get; set; }
+
+        //public override bool IsValid()
+        //{
+        //    return true;
+        //}
     }
 }

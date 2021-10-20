@@ -8,6 +8,8 @@ namespace Eice.Payment.API.DTO
         public string Name { get; set; }
         public string Cnpj { get; set; }
         //public DateTime CreationTime { get; set; }
+        //Alias
+        //Image
 
         public string CnpjFormated
         {
