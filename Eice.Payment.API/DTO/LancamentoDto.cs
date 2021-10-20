@@ -1,14 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace Eice.Payment.API.DTO
 {
     public class LancamentoDto
     {
         public int Saldo { get; set; }
-        public IEnumerable<LancamentoItemDto> LancamentoItems { get; set; }
+        public List<LancamentoItemDto> LancamentoItems { get; set; } = new List<LancamentoItemDto>();
     }
 
     public class LancamentoItemDto

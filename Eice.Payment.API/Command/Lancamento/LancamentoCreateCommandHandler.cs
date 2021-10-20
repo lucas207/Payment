@@ -3,6 +3,7 @@ using Eice.Payment.Domain.Customer;
 using Eice.Payment.Domain.Lancamento;
 using Eice.Payment.Domain.Partner;
 using MediatR;
+using MongoDB.Bson;
 using System;
 using System.Threading;
 using System.Threading.Tasks;
@@ -50,14 +51,14 @@ namespace Eice.Payment.API.Command.Lancamento
                 //metodo to map
                 LancamentoEntity novoLancamento = new()
                 {
-                    //CustomerId = request.CustomerId,
+                    Id = ObjectId.GenerateNewId(),
                     Quantity = request.Quantity,
                     Description = request.Description
                 };
-                //customer.Lancamento.Add(novoLancamento);
+                customer.Lancamentos.Add(novoLancamento);
 
-                await _commandRepository.Update(customer.Id, customer);//faz sentido ter esse? _commandRepository ou somente _customerCommandRepository
-                return await _customerCommandRepository.InsertLancamento(customer, novoLancamento);
+                return await _commandRepository.Update(customer.Id, customer);
+                //return await _customerCommandRepository.InsertLancamento(customer, novoLancamento);
             }
             catch (Exception ex)
             {

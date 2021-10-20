@@ -16,7 +16,7 @@ namespace Eice.Payment.Domain.Customer
         public string Cpf { get; set; }
 
         public int SaldoAtual { get; set; }
-        public List<LancamentoEntity> Lancamento { get; set; } = new List<LancamentoEntity>();
+        public List<LancamentoEntity> Lancamentos { get; set; } = new List<LancamentoEntity>();
         //bool possui moedas em outras instituições
         //bool permirtir negociar moedas desse partner
     }

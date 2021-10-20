@@ -17,6 +17,7 @@ namespace Eice.Payment.API.Controllers
         {
         }
 
+        //pegar na auth PartnerId, AuthenticationKey
         [HttpPost]
         public async Task<IActionResult> CreateCustomer([FromBody] CustomerCreateCommand command)
         {
@@ -24,11 +25,14 @@ namespace Eice.Payment.API.Controllers
             return await ResponseAsync(Ok(new ResponseDto<string>() { Success = true, Data = response }));
         }
 
+        //pegar na auth PartnerId, AuthenticationKey
+        //all customer da current Partner logged in
         [HttpGet]
         public async Task<IActionResult> GetAllCustomer()
         {
             var response = await _mediator.Send(new CustomerGetAllQuery());
             return await ResponseAsync(Ok(new ResponseDto<IEnumerable<CustomerDto>>() { Success = true, Data = response }));
         }
+
     }
 }

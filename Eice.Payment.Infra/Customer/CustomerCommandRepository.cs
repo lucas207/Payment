@@ -26,7 +26,7 @@ namespace Eice.Payment.Infra.Customer
         {
             var filter = Builders<CustomerEntity>.Filter.Eq(c => c.Id, Id);
             var update = Builders<CustomerEntity>.Update
-                .Set(c => c.Lancamento, entity.Lancamento)
+                .Set(c => c.Lancamentos, entity.Lancamentos)
                 .Set(c => c.SaldoAtual, entity.SaldoAtual);
             var result = await _collection.UpdateOneAsync(filter, update);
 
@@ -41,11 +41,13 @@ namespace Eice.Payment.Infra.Customer
             return result.DeletedCount == 1;
         }
 
+        //useless?
         public async Task<bool> InsertLancamento(CustomerEntity customerEntity, LancamentoEntity lancamentoEntity)
         {
+            lancamentoEntity.Id = ObjectId.GenerateNewId();
             var filter = Builders<CustomerEntity>.Filter.Eq(c => c.Id, customerEntity.Id);
             var update = Builders<CustomerEntity>.Update
-                .Push(a => a.Lancamento, lancamentoEntity);
+                .Push(a => a.Lancamentos, lancamentoEntity);
 
             var result = await _collection.UpdateOneAsync(filter, update);
             return result.ModifiedCount == 1;

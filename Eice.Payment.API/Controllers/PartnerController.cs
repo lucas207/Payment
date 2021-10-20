@@ -22,5 +22,9 @@ namespace Eice.Payment.API.Controllers
             var response = await _mediator.Send(new PartnerGetAllQuery());
             return await ResponseAsync(Ok(new ResponseDto<IEnumerable<PartnerDto>>() { Success = true, Data = response }));
         }
+
+        //Obter Total Moedas fornecidas
+
+        //Obter Total Clientes cadastrados
     }
 }

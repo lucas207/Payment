@@ -28,10 +28,10 @@ namespace Eice.Payment.API.Query.Partner
                 {
                     resp.Add(new PartnerDto
                     {
-                        Id = item.Id.ToString(),
+                        //Id = item.Id.ToString(),
                         Cnpj = item.Cnpj,
                         Name = item.Name,
-                        CreationTime = item.Id.CreationTime
+                        //CreationTime = item.Id.CreationTime
                     });
                 }
 
