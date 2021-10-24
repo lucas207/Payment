@@ -3,11 +3,8 @@ using Eice.Payment.API.DTO;
 using Eice.Payment.API.Notification;
 using Eice.Payment.API.Query.Oferta;
 using MediatR;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace Eice.Payment.API.Controllers
