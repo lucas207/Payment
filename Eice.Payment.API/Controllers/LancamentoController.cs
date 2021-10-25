@@ -25,12 +25,12 @@ namespace Eice.Payment.API.Controllers
         }
 
         //Autenticar por partner
-        [HttpGet]
-        public async Task<IActionResult> GetAllLancamento(string id)
+        [HttpGet("{customerId}")]
+        public async Task<IActionResult> GetAllLancamento(string customerId)
         {
             var response = await _mediator.Send(new LancamentoGetAllQuery
             {
-                CustomerId = id
+                CustomerId = customerId
             });
             return await ResponseAsync(Ok(new ResponseDto<LancamentoDto>() { Success = true, Data = response }));
         }

@@ -1,6 +1,6 @@
 ﻿using FluentValidation;
 
-namespace Eice.Payment.API.Command
+namespace Eice.Payment.API.Command.Customer
 {
     public class CustomerCreateCommandValidation : AbstractValidator<CustomerCreateCommand>
     {

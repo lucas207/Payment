@@ -23,7 +23,7 @@ namespace Eice.Payment.API.Query.Partner
             {
                 var list = await _queryRepository.GetAll();
 
-                List<PartnerDto> resp = new List<PartnerDto>();
+                List<PartnerDto> resp = new();
                 foreach (var item in list)
                 {
                     resp.Add(new PartnerDto
@@ -31,6 +31,7 @@ namespace Eice.Payment.API.Query.Partner
                         //Id = item.Id.ToString(),
                         Cnpj = item.Cnpj,
                         Name = item.Name,
+                        CoinName = item.CoinName
                         //CreationTime = item.Id.CreationTime
                     });
                 }
@@ -39,7 +40,7 @@ namespace Eice.Payment.API.Query.Partner
             }
             catch (Exception ex)
             {
-                await _bus.Publish(new ExceptionNotification("500", ex.Message, null, ex.StackTrace));
+                await _bus.Publish(new ExceptionNotification("500", ex.Message, null, ex.StackTrace), cancellationToken);
                 return default;
             }
         }

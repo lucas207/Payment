@@ -1,7 +1,9 @@
 using Eice.Payment.API.Notification;
 using Eice.Payment.Domain.Customer;
+using Eice.Payment.Domain.Oferta;
 using Eice.Payment.Domain.Partner;
 using Eice.Payment.Infra.Customer;
+using Eice.Payment.Infra.Oferta;
 using Eice.Payment.Infra.Partner;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
@@ -44,6 +46,8 @@ namespace Eice.Payment.API
             services.AddScoped<INotificationHandler<ExceptionNotification>, ExceptionNotificationHandler>();
             services.AddTransient<ICustomerCommandRepository, CustomerCommandRepository>();
             services.AddTransient<ICustomerQueryRepository, CustomerQueryRepository>();
+            services.AddTransient<IOfertaCommandRepository, OfertaCommandRepository>();
+            services.AddTransient<IOfertaQueryRepository, OfertaQueryRepository>();
             services.AddTransient<IPartnerQueryRepository, PartnerQueryRepository>();
         }
 

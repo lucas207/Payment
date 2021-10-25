@@ -40,7 +40,7 @@ namespace Eice.Payment.API.Query.Customer
             }
             catch (Exception ex)
             {
-                await _bus.Publish(new ExceptionNotification("500", ex.Message, null, ex.StackTrace));
+                await _bus.Publish(new ExceptionNotification("500", ex.Message, null, ex.StackTrace), cancellationToken);
                 return default;
             }
         }

@@ -16,7 +16,7 @@ namespace Eice.Payment.API.Controllers
         {
         }
 
-        [HttpGet]
+        [HttpGet("GetAll")]
         public async Task<IActionResult> GetAllPartner()
         {
             var response = await _mediator.Send(new PartnerGetAllQuery());

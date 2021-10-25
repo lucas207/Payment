@@ -1,6 +1,6 @@
 ﻿using MediatR;
 
-namespace Eice.Payment.API.Command
+namespace Eice.Payment.API.Command.Customer
 {
     public class CustomerCreateCommand : Command, IRequest<string>
     {

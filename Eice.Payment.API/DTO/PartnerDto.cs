@@ -7,6 +7,7 @@ namespace Eice.Payment.API.DTO
         //public string Id { get; set; }
         public string Name { get; set; }
         public string Cnpj { get; set; }
+        public string CoinName { get; set; }
         //public DateTime CreationTime { get; set; }
         //Alias
         //Image

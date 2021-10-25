@@ -12,8 +12,4 @@
     <ProjectReference Include="..\Eice.Payment.Domain\Eice.Payment.Domain.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Oferta\" />
-  </ItemGroup>
-
 </Project>

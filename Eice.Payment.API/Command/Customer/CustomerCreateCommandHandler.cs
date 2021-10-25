@@ -1,12 +1,11 @@
 ﻿using Eice.Payment.API.Notification;
-using Eice.Payment.Domain;
 using Eice.Payment.Domain.Customer;
 using MediatR;
 using System;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Eice.Payment.API.Command
+namespace Eice.Payment.API.Command.Customer
 {
     public class CustomerCreateCommandHandler : CommandHandler<CustomerEntity>, IRequestHandler<CustomerCreateCommand, string>
     {
@@ -38,7 +37,7 @@ namespace Eice.Payment.API.Command
             }
             catch (Exception ex)
             {
-                await _bus.Publish(new ExceptionNotification("500", ex.Message, null, ex.StackTrace));
+                await _bus.Publish(new ExceptionNotification("500", ex.Message, null, ex.StackTrace), cancellationToken);
                 return default;
             }
         }

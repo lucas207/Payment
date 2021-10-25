@@ -1,4 +1,4 @@
-﻿using Eice.Payment.API.Command;
+﻿using Eice.Payment.API.Command.Customer;
 using Eice.Payment.API.DTO;
 using Eice.Payment.API.Notification;
 using Eice.Payment.API.Query.Customer;

@@ -1,5 +1,4 @@
 ﻿using MediatR;
-using System;
 
 namespace Eice.Payment.API.Command.Oferta
 {
@@ -12,13 +11,13 @@ namespace Eice.Payment.API.Command.Oferta
 
         public string CustomerIdCreated { get; set; }
         public int QuantityOffer { get; set; }
-        public string CoinIdOffer { get; set; }
         public int QuantityReceive { get; set; }
         public string CoinIdReceive { get; set; }
 
         public override bool IsValid()
         {
-            throw new NotImplementedException();
+            var validationResult = new OfertaCreateCommandValidation().Validate(this);
+            return validationResult.IsValid;
         }
     }
 }
