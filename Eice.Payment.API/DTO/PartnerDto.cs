@@ -4,13 +4,11 @@ namespace Eice.Payment.API.DTO
 {
     public class PartnerDto
     {
-        //public string Id { get; set; }
         public string Name { get; set; }
         public string Cnpj { get; set; }
         public string CoinName { get; set; }
-        //public DateTime CreationTime { get; set; }
-        //Alias
-        //Image
+        public string NameAlias { get; set; }
+        public string Image { get; set; }
 
         public string CnpjFormated
         {

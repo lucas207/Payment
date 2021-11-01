@@ -25,6 +25,6 @@ namespace Eice.Payment.API.Controllers
 
         //Obter Total Moedas fornecidas
 
-        //Obter Total Clientes cadastrados
+        //Taxa da proporção do valor da moeda em relação aos outros partners
     }
 }

@@ -28,11 +28,11 @@ namespace Eice.Payment.API.Query.Partner
                 {
                     resp.Add(new PartnerDto
                     {
-                        //Id = item.Id.ToString(),
                         Cnpj = item.Cnpj,
                         Name = item.Name,
-                        CoinName = item.CoinName
-                        //CreationTime = item.Id.CreationTime
+                        CoinName = item.CoinName,
+                        NameAlias = item.NameAlias,
+                        Image = item.Image
                     });
                 }
 

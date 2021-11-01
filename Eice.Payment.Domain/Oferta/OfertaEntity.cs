@@ -7,7 +7,8 @@ namespace Eice.Payment.Domain.Oferta
     {
         [BsonId]
         public ObjectId Id { get; set; }
-        public string CustomerIdCreated { get; set; }
+        public string CustomerIdCreated { get; set; }//id, cpf, idMoeda, nomeMoeda
+        public string CustomerIdAccepted { get; set; }
         public string CoinIdReceive { get; set; }
         public int QuantityOffer { get; set; }
         public int QuantityReceive { get; set; }
