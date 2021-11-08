@@ -3,6 +3,7 @@ using Eice.Payment.API.DTO;
 using Eice.Payment.API.Notification;
 using Eice.Payment.API.Query.Oferta;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -12,6 +13,7 @@ namespace Eice.Payment.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class OfertaController : CustomBaseController
     {
         public OfertaController(IMediator mediator, INotificationHandler<ExceptionNotification> notifications) : base(mediator, notifications)

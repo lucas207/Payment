@@ -1,7 +1,9 @@
 ﻿using Eice.Payment.Domain.Partner;
 using MongoDB.Bson;
 using MongoDB.Driver;
+using System;
 using System.Collections.Generic;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
 
 namespace Eice.Payment.Infra.Partner
@@ -26,6 +28,13 @@ namespace Eice.Payment.Infra.Partner
         public Task<PartnerEntity> Get(string Id)
         {
             var filter = Builders<PartnerEntity>.Filter.Eq(c => c.Id, new ObjectId(Id));
+            var client = _collection.Find(filter).FirstOrDefaultAsync();
+            return client;
+        }
+
+        public Task<PartnerEntity> GetByAuthenticationKey(string authenticationKey)
+        {
+            var filter = Builders<PartnerEntity>.Filter.Eq(c => c.AuthenticationKey, authenticationKey);
             var client = _collection.Find(filter).FirstOrDefaultAsync();
             return client;
         }
