@@ -1,19 +1,18 @@
 ﻿using MediatR;
-using System;
 
 namespace Eice.Payment.API.Command.Lancamento
 {
     public class LancamentoCreateCommand : Command, IRequest<bool>
     {
-        public string CustomerId { get; set; }
         public string PartnerId { get; set; }
-        public string AuthenticationKey { get; set; }
-        public int Quantity { get; set; }
+        public string CustomerId { get; set; }
+        public decimal Quantity { get; set; }
         public string Description { get; set; }
 
         public override bool IsValid()
         {
-            throw new NotImplementedException();
+            var validationResult = new LancamentoCreateCommandValidation().Validate(this);
+            return validationResult.IsValid;
         }
     }
 }

@@ -7,7 +7,7 @@ namespace Eice.Payment.Domain.Lancamento
     {
         [BsonId]
         public ObjectId Id { get; set; }
-        public int Quantity { get; set; }
+        public decimal Quantity { get; set; }
         public string Description { get; set; }
     }
 }

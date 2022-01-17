@@ -4,6 +4,7 @@ namespace Eice.Payment.API.DTO
 {
     public class PartnerDto
     {
+        public string Id { get; set; }
         public string Name { get; set; }
         public string Cnpj { get; set; }
         public string CoinName { get; set; }

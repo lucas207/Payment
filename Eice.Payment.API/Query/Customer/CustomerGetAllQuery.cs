@@ -6,5 +6,6 @@ namespace Eice.Payment.API.Query.Customer
 {
     public class CustomerGetAllQuery : Query, IRequest<IEnumerable<CustomerDto>>
     {
+        public string PartnerId { get; set; }
     }
 }

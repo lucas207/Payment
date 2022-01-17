@@ -17,6 +17,13 @@ namespace Eice.Payment.API.Controllers
         {
         }
 
+        [HttpPost("Authenticate"), AllowAnonymous]
+        public async Task<IActionResult> Authenticate([FromBody] PartnerAuthenticateQuery partnerAuthenticateQuery)
+        {
+            var response = await _mediator.Send(partnerAuthenticateQuery);
+            return await ResponseAsync(Ok(new ResponseDto<string>() { Success = true, Data = response }));
+        }
+
         [HttpGet("GetAll")]
         [Authorize]
         public async Task<IActionResult> GetAllPartner()
@@ -25,14 +32,7 @@ namespace Eice.Payment.API.Controllers
             var response = await _mediator.Send(new PartnerGetAllQuery());
             return await ResponseAsync(Ok(new ResponseDto<IEnumerable<PartnerDto>>() { Success = true, Data = response }));
         }
-
-        [HttpPost("Authenticate"), AllowAnonymous]
-        public async Task<IActionResult> Authenticate([FromBody] PartnerAuthenticateQuery partnerAuthenticateQuery)
-        {
-            var response = await _mediator.Send(partnerAuthenticateQuery);
-            return await ResponseAsync(Ok(new ResponseDto<string>() { Success = true, Data = response }));
-        }
-
+        
         //Obter Total Moedas fornecidas
 
         //Taxa da proporção do valor da moeda em relação aos outros partners

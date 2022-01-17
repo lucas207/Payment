@@ -16,7 +16,7 @@ namespace Eice.Payment.API.Command.Lancamento
         private readonly IPartnerQueryRepository _partnerQueryRepository;
         private readonly ICustomerQueryRepository _customerQueryRepository;
 
-        public LancamentoCreateCommandHandler(IMediator bus, 
+        public LancamentoCreateCommandHandler(IMediator bus,
             ICustomerCommandRepository customerCommandRepository,
             IPartnerQueryRepository partnerQueryRepository,
             ICustomerQueryRepository customerQueryRepository)
@@ -29,21 +29,14 @@ namespace Eice.Payment.API.Command.Lancamento
 
         public async Task<bool> Handle(LancamentoCreateCommand request, CancellationToken cancellationToken)
         {
-            //if (!request.IsValid()) { GetNotificationsErrors(request); return default; }
+            if (!request.IsValid()) { GetNotificationsErrors(request); return default; }
 
             try
             {
-                //Validar request.AuthenticationKey pertence ao PartnerId
-                var partner = await _partnerQueryRepository.Get(request.PartnerId);
-                if (partner is null)
-                    throw new Exception("Parceiro não encontrado");
+                await ValidarPartner(request);
 
-                if(partner.AuthenticationKey != request.AuthenticationKey)
-                    throw new Exception("Erro de autenticação");
-
-                //Validar request.PartnerId existe
                 var customer = await _customerQueryRepository.Get(request.CustomerId);
-                if (customer is null)
+                if (customer is null || customer.PartnerId != request.PartnerId)
                     throw new Exception("Cliente não encontrado");
 
 
@@ -62,9 +55,21 @@ namespace Eice.Payment.API.Command.Lancamento
             }
             catch (Exception ex)
             {
-                await _bus.Publish(new ExceptionNotification("500", ex.Message, null, ex.StackTrace));
+                await _bus.Publish(new ExceptionNotification("020", ex.Message, null, ex.StackTrace), cancellationToken);
                 return default;
             }
+        }
+
+        private async Task ValidarPartner(LancamentoCreateCommand request)
+        {
+            //Validar request.PartnerId existe
+            var partner = await _partnerQueryRepository.Get(request.PartnerId);
+            if (partner is null)
+                throw new Exception("Parceiro não encontrado");
+
+            ////Validar request.AuthenticationKey pertence ao PartnerId
+            //if (partner.AuthenticationKey != request.AuthenticationKey)
+            //    throw new Exception("Erro de autenticação");
         }
     }
 }

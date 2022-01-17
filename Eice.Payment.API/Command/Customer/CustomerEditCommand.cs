@@ -2,15 +2,15 @@
 
 namespace Eice.Payment.API.Command.Customer
 {
-    public class CustomerCreateCommand : Command, IRequest<string>
+    public class CustomerEditCommand : Command, IRequest<bool>
     {
         public string PartnerId { get; set; }
-        public string Cpf { get; set; }
+        public string Id { get; set; }
         public string Name { get; set; }
 
         public override bool IsValid()
         {
-            var validationResult = new CustomerCreateCommandValidation().Validate(this);
+            var validationResult = new CustomerEditCommandValidation().Validate(this);
             return validationResult.IsValid;
         }
     }

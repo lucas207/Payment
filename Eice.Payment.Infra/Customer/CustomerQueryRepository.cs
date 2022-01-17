@@ -36,5 +36,11 @@ namespace Eice.Payment.Infra.Customer
             return clientes;
         }
 
+        public IEnumerable<CustomerEntity> GetAllFromPartnerId(string partnerId)
+        {
+            var filter = Builders<CustomerEntity>.Filter.Eq(c => c.PartnerId, partnerId);
+            var clientes = _collection.Find(filter).ToEnumerable();
+            return clientes;
+        }
     }
 }

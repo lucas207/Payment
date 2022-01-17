@@ -19,12 +19,16 @@ namespace Eice.Payment.Infra.Oferta
 
         public Task<OfertaEntity> Get(ObjectId Id)
         {
-            throw new NotImplementedException();
+            var filter = Builders<OfertaEntity>.Filter.Eq(c => c.Id, Id);
+            var client = _collection.Find(filter).FirstOrDefaultAsync();
+            return client;
         }
 
         public Task<OfertaEntity> Get(string Id)
         {
-            throw new NotImplementedException();
+            var filter = Builders<OfertaEntity>.Filter.Eq(c => c.Id, new ObjectId(Id));
+            var client = _collection.Find(filter).FirstOrDefaultAsync();
+            return client;
         }
 
         public async Task<IEnumerable<OfertaEntity>> GetAll()

@@ -13,5 +13,6 @@ namespace Eice.Payment.Domain.Partner
         public string NameAlias { get; set; }
         public string Image { get; set; }
         public string AuthenticationKey { get; set; }
+        public bool EnableExchanges { get; set; }
     }
 }

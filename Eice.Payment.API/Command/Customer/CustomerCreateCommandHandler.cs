@@ -27,7 +27,8 @@ namespace Eice.Payment.API.Command.Customer
                 CustomerEntity entity = new()
                 {
                     PartnerId = request.PartnerId,
-                    Cpf = request.Cpf
+                    Cpf = request.Cpf,
+                    Name = request.Name
                 };
 
                 await _commandRepository.Create(entity);
@@ -37,7 +38,7 @@ namespace Eice.Payment.API.Command.Customer
             }
             catch (Exception ex)
             {
-                await _bus.Publish(new ExceptionNotification("500", ex.Message, null, ex.StackTrace), cancellationToken);
+                await _bus.Publish(new ExceptionNotification("010", ex.Message, null, ex.StackTrace), cancellationToken);
                 return default;
             }
         }

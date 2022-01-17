@@ -2,11 +2,13 @@
 using Eice.Payment.API.DTO;
 using Eice.Payment.API.Notification;
 using Eice.Payment.API.Query.Oferta;
+using Eice.Payment.API.Request;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace Eice.Payment.API.Controllers
@@ -22,9 +24,18 @@ namespace Eice.Payment.API.Controllers
 
         //pegar na auth PartnerId, AuthenticationKey
         [HttpPost]
-        public async Task<IActionResult> CreateOferta([FromBody] OfertaCreateCommand command)
+        public async Task<IActionResult> CreateOferta([FromBody] OfertaCreateRequest request)
         {
-            var response = await _mediator.Send(command);
+            var idPartner = User.Claims.Where(x => x.Type == "id").FirstOrDefault().Value;
+
+            var response = await _mediator.Send(new OfertaCreateCommand
+            {
+                PartnerId = idPartner,
+                CustomerIdCreated = request.CustomerIdCreated,
+                QuantityOffer = request.QuantityOffer,
+                QuantityReceive = request.QuantityReceive,
+                CoinIdReceive = request.CoinIdReceive,
+            });
             return await ResponseAsync(Ok(new ResponseDto<string>() { Success = true, Data = response }));
         }
 
@@ -43,7 +54,6 @@ namespace Eice.Payment.API.Controllers
         //retornar moedas(Partner) disponiveis para negocição, por cliente, para criar uma oferta
 
         [HttpGet("GetOfertasDisponiveis/{id}")]
-        //[Route("oi/{ido}")]
         public async Task<IActionResult> GetOfertasDisponiveis(string id)
         {
             return Ok();
@@ -55,5 +65,22 @@ namespace Eice.Payment.API.Controllers
             //ofertas abertas e executadas
             return await ResponseAsync(Ok());
         }
+
+        //Aceitar oferta X
+        [HttpPost("AceitarOferta")]
+        public async Task<IActionResult> AceitarOferta([FromBody] OfertaAceitarRequest request)
+        {
+            var idPartner = User.Claims.Where(x => x.Type == "id").FirstOrDefault().Value;
+
+            var response = await _mediator.Send(new OfertaEditCommand
+            {
+                PartnerId = idPartner,
+                CustomerIdAccepted = request.CustomerIdAccepted,
+                OfertaId = request.OfertaId
+            });
+            return await ResponseAsync(Ok(new ResponseDto<bool>() { Success = true, Data = response }));
+        }
+
+        //Cancelar oferta X
     }
 }

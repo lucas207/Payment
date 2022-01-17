@@ -28,7 +28,7 @@ namespace Eice.Payment.API.Authentication
             var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
             // tempo de expiração do token: 1 hora
             var expiration = DateTime.UtcNow.AddHours(1);
-            JwtSecurityToken token = new JwtSecurityToken(
+            JwtSecurityToken token = new(
                issuer: null,
                audience: null,
                claims: claims,

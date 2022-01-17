@@ -1,9 +1,7 @@
 ﻿using Eice.Payment.Domain.Partner;
 using MongoDB.Bson;
 using MongoDB.Driver;
-using System;
 using System.Collections.Generic;
-using System.Linq.Expressions;
 using System.Threading.Tasks;
 
 namespace Eice.Payment.Infra.Partner
@@ -42,7 +40,12 @@ namespace Eice.Payment.Infra.Partner
         public async Task<IEnumerable<PartnerEntity>> GetAll()
         {
             var all = await _collection.Find(_ => true).ToListAsync();
+            return all;
+        }
 
+        public async Task<IEnumerable<PartnerEntity>> GetAllEnableExchange()
+        {
+            var all = await _collection.Find(x => x.EnableExchanges).ToListAsync();
             return all;
         }
     }

@@ -27,9 +27,16 @@ namespace Eice.Payment.Infra.Oferta
             throw new NotImplementedException();
         }
 
-        public Task<bool> Update(ObjectId Id, OfertaEntity entity)
+        public async Task<bool> Update(ObjectId Id, OfertaEntity entity)
         {
-            throw new NotImplementedException();
+            var filter = Builders<OfertaEntity>.Filter.Eq(c => c.Id, Id);
+            var update = Builders<OfertaEntity>.Update
+                .Set(c => c.CustomerAccepted, entity.CustomerAccepted)
+                .Set(c => c.Status, entity.Status);
+                //.Set(c => c.SaldoAtual, entity.SaldoAtual);
+            var result = await _collection.UpdateOneAsync(filter, update);
+
+            return result.ModifiedCount == 1;
         }
     }
 }

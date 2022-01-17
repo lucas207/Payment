@@ -23,6 +23,9 @@ namespace Eice.Payment.API.Query.Oferta
 
             try
             {
+                //filtrar por ofertas onde tem conta nos 2 partner
+                //os 2 partners devem habilitar exchanges
+
                 IEnumerable<OfertaEntity> list = await _queryRepository.GetAll();
 
                 List<OfertaDto> resp = new();
@@ -31,9 +34,9 @@ namespace Eice.Payment.API.Query.Oferta
                     resp.Add(new OfertaDto
                     {
                         Id = item.Id.ToString(),
-                        //CoinIdOffer = item.
+                        CoinIdOffer = item.CoinOffer.Name,
                         QuantityOffer = item.QuantityOffer,
-                        CoinIdReceive = item.CoinIdReceive,
+                        CoinIdReceive = item.CoinReceive.Name,
                         QuantityReceive = item.QuantityReceive,
                         Status = item.Status.ToString(),
                         CreationTime = item.Id.CreationTime
@@ -44,7 +47,7 @@ namespace Eice.Payment.API.Query.Oferta
             }
             catch (Exception ex)
             {
-                await _bus.Publish(new ExceptionNotification("500", ex.Message, null, ex.StackTrace), cancellationToken);
+                await _bus.Publish(new ExceptionNotification("036", ex.Message, null, ex.StackTrace), cancellationToken);
                 return default;
             }
         }

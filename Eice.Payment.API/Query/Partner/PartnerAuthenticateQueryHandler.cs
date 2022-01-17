@@ -25,6 +25,7 @@ namespace Eice.Payment.API.Query.Partner
         {
             try
             {
+                //colocar sistema de Login e Senha?
                 PartnerEntity partner = await _partnerQueryRepository.GetByAuthenticationKey(request.AuthenticationKey);
                 if (partner is null)
                     throw new Exception("Parceiro não encontrado");
@@ -36,7 +37,7 @@ namespace Eice.Payment.API.Query.Partner
             }
             catch (Exception ex)
             {
-                await _bus.Publish(new ExceptionNotification("500", ex.Message, null, ex.StackTrace));
+                await _bus.Publish(new ExceptionNotification("046", ex.Message, null, ex.StackTrace), cancellationToken);
                 return default;
             }
         }

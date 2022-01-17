@@ -26,6 +26,7 @@ namespace Eice.Payment.Infra.Customer
         {
             var filter = Builders<CustomerEntity>.Filter.Eq(c => c.Id, Id);
             var update = Builders<CustomerEntity>.Update
+                .Set(c => c.Name, entity.Name)
                 .Set(c => c.Lancamentos, entity.Lancamentos)
                 .Set(c => c.SaldoAtual, entity.SaldoAtual);
             var result = await _collection.UpdateOneAsync(filter, update);
