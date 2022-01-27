@@ -1,8 +1,7 @@
 using Bogus;
-using Eice.Payment.API.Notification;
 using Eice.Payment.Domain.Customer;
+using Eice.Payment.Domain.Notification;
 using MediatR;
-using System;
 using System.Collections.Generic;
 using Xunit;
 

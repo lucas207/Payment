@@ -18,4 +18,14 @@
     <ProjectReference Include="..\Eice.Payment.Infra\Eice.Payment.Infra.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Command\Customer\" />
+    <Folder Include="Command\Lancamento\" />
+    <Folder Include="Command\Oferta\" />
+    <Folder Include="Query\Customer\" />
+    <Folder Include="Query\Lancamento\" />
+    <Folder Include="Query\Oferta\" />
+    <Folder Include="Query\Partner\" />
+  </ItemGroup>
+
 </Project>

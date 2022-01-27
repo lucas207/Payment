@@ -1,4 +1,5 @@
 ﻿using Eice.Payment.Domain.Customer;
+using Eice.Payment.Domain.Customer.Commands;
 using Eice.Payment.Domain.Lancamento;
 using MongoDB.Bson;
 using MongoDB.Driver;

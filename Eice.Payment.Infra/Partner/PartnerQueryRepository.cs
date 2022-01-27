@@ -1,4 +1,5 @@
 ﻿using Eice.Payment.Domain.Partner;
+using Eice.Payment.Domain.Partner.Queries;
 using MongoDB.Bson;
 using MongoDB.Driver;
 using System.Collections.Generic;

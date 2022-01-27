@@ -1,8 +1,8 @@
-﻿using Eice.Payment.API.Command.Oferta;
-using Eice.Payment.API.DTO;
-using Eice.Payment.API.Notification;
-using Eice.Payment.API.Query.Oferta;
-using Eice.Payment.API.Request;
+﻿using Eice.Payment.API.Request;
+using Eice.Payment.API.Response;
+using Eice.Payment.Domain.Notification;
+using Eice.Payment.Domain.Oferta.Commands;
+using Eice.Payment.Domain.Oferta.Queries;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;

@@ -1,8 +1,12 @@
 using Eice.Payment.API.Authentication;
-using Eice.Payment.API.Notification;
-using Eice.Payment.Domain.Customer;
-using Eice.Payment.Domain.Oferta;
-using Eice.Payment.Domain.Partner;
+using Eice.Payment.Domain;
+using Eice.Payment.Domain.Authentication;
+using Eice.Payment.Domain.Customer.Commands;
+using Eice.Payment.Domain.Customer.Queries;
+using Eice.Payment.Domain.Notification;
+using Eice.Payment.Domain.Oferta.Commands;
+using Eice.Payment.Domain.Oferta.Queries;
+using Eice.Payment.Domain.Partner.Queries;
 using Eice.Payment.Infra.Customer;
 using Eice.Payment.Infra.Oferta;
 using Eice.Payment.Infra.Partner;
@@ -70,13 +74,17 @@ namespace Eice.Payment.API
 
             services.AddSingleton<IMongoClient, MongoClient>(sp => new MongoClient(Configuration.GetConnectionString("MongoDb")));
 
-            services.AddMediatR(typeof(Startup));
+            var assembly = AppDomain.CurrentDomain.Load("Eice.Payment.Domain");
+            services.AddMediatR(assembly);
+            //services.AddMediatR(typeof(Startup));
             services.AddScoped<INotificationHandler<ExceptionNotification>, ExceptionNotificationHandler>();
             services.AddTransient<ICustomerCommandRepository, CustomerCommandRepository>();
             services.AddTransient<ICustomerQueryRepository, CustomerQueryRepository>();
             services.AddTransient<IOfertaCommandRepository, OfertaCommandRepository>();
             services.AddTransient<IOfertaQueryRepository, OfertaQueryRepository>();
             services.AddTransient<IPartnerQueryRepository, PartnerQueryRepository>();
+
+            services.AddScoped<ITokenService, TokenService>();
 
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
              options.TokenValidationParameters = new TokenValidationParameters

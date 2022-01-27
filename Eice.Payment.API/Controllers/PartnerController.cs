@@ -1,6 +1,6 @@
-﻿using Eice.Payment.API.DTO;
-using Eice.Payment.API.Notification;
-using Eice.Payment.API.Query.Partner;
+﻿using Eice.Payment.API.Response;
+using Eice.Payment.Domain.Notification;
+using Eice.Payment.Domain.Partner.Queries;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;

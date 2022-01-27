@@ -1,8 +1,7 @@
-﻿using Eice.Payment.API.Notification;
+﻿using Eice.Payment.Domain.Notification;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
-using System.Threading.Tasks;
 
 namespace Eice.Payment.API.Controllers
 {

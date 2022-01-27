@@ -1,7 +1,7 @@
-﻿using Eice.Payment.API.Command.Lancamento;
-using Eice.Payment.API.DTO;
-using Eice.Payment.API.Notification;
-using Eice.Payment.API.Query.Lancamento;
+﻿using Eice.Payment.API.Response;
+using Eice.Payment.Domain.Lancamento.Commands;
+using Eice.Payment.Domain.Lancamento.Queries;
+using Eice.Payment.Domain.Notification;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
