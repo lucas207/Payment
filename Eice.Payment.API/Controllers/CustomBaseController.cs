@@ -22,7 +22,7 @@ namespace Eice.Payment.API.Controllers
         protected bool IsValidOperation()
             => !_notifications.HasNotifications();
 
-        protected async Task<IActionResult> ResponseAsync(IActionResult action)
+        protected IActionResult ResponseHandle(IActionResult action)
         {
             if (IsValidOperation())
                 return action;

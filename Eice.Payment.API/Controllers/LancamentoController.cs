@@ -21,7 +21,7 @@ namespace Eice.Payment.API.Controllers
         public async Task<IActionResult> CreateLancamento([FromBody] LancamentoCreateCommand command)
         {
             var response = await _mediator.Send(command);
-            return await ResponseAsync(Ok(new ResponseDto<bool>() { Success = true, Data = response }));
+            return ResponseHandle(Ok(new ResponseDto<bool>() { Success = true, Data = response }));
         }
 
         //Autenticar por partner
@@ -32,7 +32,7 @@ namespace Eice.Payment.API.Controllers
             {
                 CustomerId = customerId
             });
-            return await ResponseAsync(Ok(new ResponseDto<LancamentoDto>() { Success = true, Data = response }));
+            return ResponseHandle(Ok(new ResponseDto<LancamentoDto>() { Success = true, Data = response }));
         }
     }
 }

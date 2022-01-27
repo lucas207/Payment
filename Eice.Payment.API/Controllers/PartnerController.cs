@@ -21,7 +21,7 @@ namespace Eice.Payment.API.Controllers
         public async Task<IActionResult> Authenticate([FromBody] PartnerAuthenticateQuery partnerAuthenticateQuery)
         {
             var response = await _mediator.Send(partnerAuthenticateQuery);
-            return await ResponseAsync(Ok(new ResponseDto<string>() { Success = true, Data = response }));
+            return ResponseHandle(Ok(new ResponseDto<string>() { Success = true, Data = response }));
         }
 
         [HttpGet("GetAll")]
@@ -30,7 +30,7 @@ namespace Eice.Payment.API.Controllers
         {
             var aa = User.Identity.Name;
             var response = await _mediator.Send(new PartnerGetAllQuery());
-            return await ResponseAsync(Ok(new ResponseDto<IEnumerable<PartnerDto>>() { Success = true, Data = response }));
+            return ResponseHandle(Ok(new ResponseDto<IEnumerable<PartnerDto>>() { Success = true, Data = response }));
         }
         
         //Obter Total Moedas fornecidas

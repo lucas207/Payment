@@ -36,14 +36,14 @@ namespace Eice.Payment.API.Controllers
                 QuantityReceive = request.QuantityReceive,
                 CoinIdReceive = request.CoinIdReceive,
             });
-            return await ResponseAsync(Ok(new ResponseDto<string>() { Success = true, Data = response }));
+            return ResponseHandle(Ok(new ResponseDto<string>() { Success = true, Data = response }));
         }
 
         [HttpGet]
         public async Task<IActionResult> GetAllOferta()
         {
             var response = await _mediator.Send(new OfertaGetAllQuery());
-            return await ResponseAsync(Ok(new ResponseDto<IEnumerable<OfertaDto>>() { Success = true, Data = response }));
+            return ResponseHandle(Ok(new ResponseDto<IEnumerable<OfertaDto>>() { Success = true, Data = response }));
         }
 
         [HttpGet("{id}")]
@@ -63,7 +63,7 @@ namespace Eice.Payment.API.Controllers
         public async Task<IActionResult> GetMinhasOfertas(string id)
         {
             //ofertas abertas e executadas
-            return await ResponseAsync(Ok());
+            return ResponseHandle(Ok());
         }
 
         //Aceitar oferta X
@@ -78,7 +78,7 @@ namespace Eice.Payment.API.Controllers
                 CustomerIdAccepted = request.CustomerIdAccepted,
                 OfertaId = request.OfertaId
             });
-            return await ResponseAsync(Ok(new ResponseDto<bool>() { Success = true, Data = response }));
+            return ResponseHandle(Ok(new ResponseDto<bool>() { Success = true, Data = response }));
         }
 
         //Cancelar oferta X

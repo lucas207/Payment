@@ -32,7 +32,7 @@ namespace Eice.Payment.API.Controllers
                 Name = request.Name,
                 PartnerId = idPartner
             });
-            return await ResponseAsync(Ok(new ResponseDto<string>() { Success = true, Data = response }));
+            return ResponseHandle(Ok(new ResponseDto<string>() { Success = true, Data = response }));
         }
 
         [HttpGet]
@@ -44,7 +44,7 @@ namespace Eice.Payment.API.Controllers
             {
                 PartnerId = idPartner
             });
-            return await ResponseAsync(Ok(new ResponseDto<IEnumerable<CustomerDto>>() { Success = true, Data = response }));
+            return ResponseHandle(Ok(new ResponseDto<IEnumerable<CustomerDto>>() { Success = true, Data = response }));
         }
 
         [HttpPut]
@@ -58,7 +58,7 @@ namespace Eice.Payment.API.Controllers
                 Name = request.Name,
                 PartnerId = idPartner
             });
-            return await ResponseAsync(Ok(new ResponseDto<bool>() { Success = true, Data = response }));
+            return ResponseHandle(Ok(new ResponseDto<bool>() { Success = true, Data = response }));
         }
     }
 }
