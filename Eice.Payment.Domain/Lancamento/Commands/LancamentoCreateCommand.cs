@@ -11,8 +11,8 @@ namespace Eice.Payment.Domain.Lancamento.Commands
 
         public override bool IsValid()
         {
-            var validationResult = new LancamentoCreateCommandValidation().Validate(this);
-            return validationResult.IsValid;
+            ValidationResult = new LancamentoCreateCommandValidation().Validate(this);
+            return ValidationResult.IsValid;
         }
     }
 }

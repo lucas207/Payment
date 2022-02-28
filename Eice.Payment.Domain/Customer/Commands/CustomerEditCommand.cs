@@ -10,8 +10,8 @@ namespace Eice.Payment.Domain.Customer.Commands
 
         public override bool IsValid()
         {
-            var validationResult = new CustomerEditCommandValidation().Validate(this);
-            return validationResult.IsValid;
+            ValidationResult = new CustomerEditCommandValidation().Validate(this);
+            return ValidationResult.IsValid;
         }
     }
 }

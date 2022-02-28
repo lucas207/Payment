@@ -10,8 +10,8 @@ namespace Eice.Payment.Domain.Oferta.Commands
 
         public override bool IsValid()
         {
-            var validationResult = new OfertaEditCommandValidation().Validate(this);
-            return validationResult.IsValid;
+            ValidationResult = new OfertaEditCommandValidation().Validate(this);
+            return ValidationResult.IsValid;
         }
     }
 }

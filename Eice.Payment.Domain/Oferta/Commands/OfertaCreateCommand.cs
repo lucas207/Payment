@@ -12,8 +12,8 @@ namespace Eice.Payment.Domain.Oferta.Commands
 
         public override bool IsValid()
         {
-            var validationResult = new OfertaCreateCommandValidation().Validate(this);
-            return validationResult.IsValid;
+            ValidationResult = new OfertaCreateCommandValidation().Validate(this);
+            return ValidationResult.IsValid;
         }
     }
 }
