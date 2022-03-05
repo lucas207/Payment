@@ -1,5 +1,4 @@
 using Eice.Payment.API.Authentication;
-using Eice.Payment.Domain;
 using Eice.Payment.Domain.Authentication;
 using Eice.Payment.Domain.Customer.Commands;
 using Eice.Payment.Domain.Customer.Queries;
@@ -39,6 +38,14 @@ namespace Eice.Payment.API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddCors(o =>
+            {
+                o.AddDefaultPolicy(builder =>
+                builder.WithOrigins("https://localhost:44300", "http://localhost:1515")
+                    .AllowAnyMethod()
+                    .AllowAnyHeader());
+            });
+
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
@@ -112,6 +119,9 @@ namespace Eice.Payment.API
             app.UseHttpsRedirection();
 
             app.UseRouting();
+
+            //Permitir meu site Blazor acessar
+            app.UseCors();
 
             app.UseAuthentication();
             app.UseAuthorization();
