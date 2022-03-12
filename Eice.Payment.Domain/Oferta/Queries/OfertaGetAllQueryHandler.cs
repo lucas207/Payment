@@ -45,7 +45,7 @@ namespace Eice.Payment.Domain.Oferta.Queries
             }
             catch (Exception ex)
             {
-                await _bus.Publish(new ExceptionNotification("036", ex.Message, null, ex.StackTrace), cancellationToken);
+                await _bus.Publish(new ExceptionNotification("036", ex.Message, null), cancellationToken);
                 return default;
             }
         }

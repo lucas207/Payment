@@ -18,7 +18,7 @@ namespace Eice.Payment.Domain
         {
             foreach (var erro in command.GetValidationResult().Errors)
             {
-                _bus.Publish(new ExceptionNotification(erro.ErrorCode, erro.ErrorMessage, erro.PropertyName, new Exception().StackTrace));
+                _bus.Publish(new ExceptionNotification(erro.ErrorCode, erro.ErrorMessage, erro.PropertyName));
             }
         }
     }

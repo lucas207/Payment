@@ -2,6 +2,7 @@
 using Eice.Payment.Domain.Notification;
 using MediatR;
 using System;
+using System.Diagnostics;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -35,7 +36,8 @@ namespace Eice.Payment.Domain.Partner.Queries
             }
             catch (Exception ex)
             {
-                await _bus.Publish(new ExceptionNotification("046", ex.Message, null, ex.StackTrace), cancellationToken);
+                Debug.WriteLine($"Ooooooooooopa: {ex.Message} - {ex.StackTrace}");
+                await _bus.Publish(new ExceptionNotification("046", ex.Message, null), cancellationToken);
                 return default;
             }
         }

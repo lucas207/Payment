@@ -42,7 +42,7 @@ namespace Eice.Payment.Domain.Lancamento.Queries
             }
             catch (Exception ex)
             {
-                await _bus.Publish(new ExceptionNotification("026", ex.Message, null, ex.StackTrace), cancellationToken);
+                await _bus.Publish(new ExceptionNotification("026", ex.Message, null), cancellationToken);
                 return default;
             }
         }
