@@ -1,5 +1,6 @@
 ﻿using Eice.Payment.Domain.Oferta;
 using Eice.Payment.Domain.Oferta.Queries;
+using Microsoft.Extensions.Configuration;
 using MongoDB.Bson;
 using MongoDB.Driver;
 using System;
@@ -12,9 +13,10 @@ namespace Eice.Payment.Infra.Oferta
     {
         private readonly IMongoCollection<OfertaEntity> _collection;
 
-        public OfertaQueryRepository(IMongoClient client)
+        public OfertaQueryRepository(IMongoClient client, IConfiguration configuration)
         {
-            var _database = client.GetDatabase("EicePagamentosDB");
+            var _databaseName = configuration.GetSection("MongoConnection:Database").Value;
+            var _database = client.GetDatabase(_databaseName);
             _collection = _database.GetCollection<OfertaEntity>("Oferta");
         }
 

@@ -1,6 +1,6 @@
 ﻿using Eice.Payment.Domain.Customer;
 using Eice.Payment.Domain.Customer.Commands;
-using Eice.Payment.Domain.Lancamento;
+using Microsoft.Extensions.Configuration;
 using MongoDB.Bson;
 using MongoDB.Driver;
 using System.Threading.Tasks;
@@ -11,9 +11,10 @@ namespace Eice.Payment.Infra.Customer
     {
         private readonly IMongoCollection<CustomerEntity> _collection;
 
-        public CustomerCommandRepository(IMongoClient client)
+        public CustomerCommandRepository(IMongoClient client, IConfiguration configuration)
         {
-            var _database = client.GetDatabase("EicePagamentosDB");
+            var _databaseName = configuration.GetSection("MongoConnection:Database").Value;
+            var _database = client.GetDatabase(_databaseName);
             _collection = _database.GetCollection<CustomerEntity>("Customer");
         }
 
@@ -37,23 +38,12 @@ namespace Eice.Payment.Infra.Customer
 
         public async Task<bool> Delete(ObjectId Id)
         {
-            var filter = Builders<CustomerEntity>.Filter.Eq(c => c.Id, Id);
-            var result = await _collection.DeleteOneAsync(filter);
+            //var filter = Builders<CustomerEntity>.Filter.Eq(c => c.Id, Id);
+            //var result = await _collection.DeleteOneAsync(filter);
+            var result = await _collection.DeleteOneAsync(x => x.Id == Id);
 
             return result.DeletedCount == 1;
         }
 
-        //useless?
-        public async Task<bool> InsertLancamento(CustomerEntity customerEntity, LancamentoEntity lancamentoEntity)
-        {
-            lancamentoEntity.Id = ObjectId.GenerateNewId();
-            var filter = Builders<CustomerEntity>.Filter.Eq(c => c.Id, customerEntity.Id);
-            var update = Builders<CustomerEntity>.Update
-                .Push(a => a.Lancamentos, lancamentoEntity);
-
-            var result = await _collection.UpdateOneAsync(filter, update);
-            return result.ModifiedCount == 1;
-            //& Builders<CustomerEntity>.Filter.ElemMatch(x => x.Lancamento, Builders<LancamentoEntity>.Filter.Eq(a => a.Id, entity.Id);
-        }
     }
 }

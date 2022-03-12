@@ -1,5 +1,6 @@
 ﻿using Eice.Payment.Domain.Partner;
 using Eice.Payment.Domain.Partner.Queries;
+using Microsoft.Extensions.Configuration;
 using MongoDB.Bson;
 using MongoDB.Driver;
 using System.Collections.Generic;
@@ -10,9 +11,10 @@ namespace Eice.Payment.Infra.Partner
     public class PartnerQueryRepository : IPartnerQueryRepository
     {
         private readonly IMongoCollection<PartnerEntity> _collection;
-        public PartnerQueryRepository(IMongoClient client)
+        public PartnerQueryRepository(IMongoClient client, IConfiguration configuration)
         {
-            var _database = client.GetDatabase("EicePagamentosDB");
+            var _databaseName = configuration.GetSection("MongoConnection:Database").Value;
+            var _database = client.GetDatabase(_databaseName);
             _collection = _database.GetCollection<PartnerEntity>("Partner");
         }
 

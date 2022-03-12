@@ -1,4 +1,5 @@
 using Eice.Payment.API.Authentication;
+using Eice.Payment.Domain;
 using Eice.Payment.Domain.Authentication;
 using Eice.Payment.Domain.Customer.Commands;
 using Eice.Payment.Domain.Customer.Queries;
@@ -81,9 +82,7 @@ namespace Eice.Payment.API
 
             services.AddSingleton<IMongoClient, MongoClient>(sp => new MongoClient(Configuration.GetConnectionString("MongoDb")));
 
-            var assembly = AppDomain.CurrentDomain.Load("Eice.Payment.Domain");
-            services.AddMediatR(assembly);
-            //services.AddMediatR(typeof(Startup));
+            services.AddMediatR(typeof(CommandHandler<object>));
             services.AddScoped<INotificationHandler<ExceptionNotification>, ExceptionNotificationHandler>();
             services.AddTransient<ICustomerCommandRepository, CustomerCommandRepository>();
             services.AddTransient<ICustomerQueryRepository, CustomerQueryRepository>();

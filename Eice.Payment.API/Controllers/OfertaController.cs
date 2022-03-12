@@ -22,7 +22,6 @@ namespace Eice.Payment.API.Controllers
         {
         }
 
-        //pegar na auth PartnerId, AuthenticationKey
         [HttpPost]
         public async Task<IActionResult> CreateOferta([FromBody] OfertaCreateRequest request)
         {
@@ -54,13 +53,13 @@ namespace Eice.Payment.API.Controllers
         //retornar moedas(Partner) disponiveis para negocição, por cliente, para criar uma oferta
 
         [HttpGet("GetOfertasDisponiveis/{id}")]
-        public async Task<IActionResult> GetOfertasDisponiveis(string id)
+        public async Task<IActionResult> GetOfertasDisponiveis(string customerId)
         {
             return Ok();
         }
 
         [HttpGet("GetMinhasOfertas/{id}")]
-        public async Task<IActionResult> GetMinhasOfertas(string id)
+        public async Task<IActionResult> GetMinhasOfertas(string customerId)
         {
             //ofertas abertas e executadas
             return ResponseHandle(Ok());

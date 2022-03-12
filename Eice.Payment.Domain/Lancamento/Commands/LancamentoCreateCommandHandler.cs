@@ -13,7 +13,6 @@ namespace Eice.Payment.Domain.Lancamento.Commands
 {
     public class LancamentoCreateCommandHandler : CommandHandler<CustomerEntity>, IRequestHandler<LancamentoCreateCommand, bool>
     {
-        private readonly ICustomerCommandRepository _customerCommandRepository;
         private readonly IPartnerQueryRepository _partnerQueryRepository;
         private readonly ICustomerQueryRepository _customerQueryRepository;
 
@@ -23,7 +22,6 @@ namespace Eice.Payment.Domain.Lancamento.Commands
             ICustomerQueryRepository customerQueryRepository)
             : base(bus, customerCommandRepository)
         {
-            _customerCommandRepository = customerCommandRepository;
             _partnerQueryRepository = partnerQueryRepository;
             _customerQueryRepository = customerQueryRepository;
         }
@@ -52,7 +50,6 @@ namespace Eice.Payment.Domain.Lancamento.Commands
                 customer.Lancamentos.Add(novoLancamento);
 
                 return await _commandRepository.Update(customer.Id, customer);
-                //return await _customerCommandRepository.InsertLancamento(customer, novoLancamento);
             }
             catch (Exception ex)
             {
