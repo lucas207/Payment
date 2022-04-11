@@ -20,9 +20,10 @@ namespace Eice.Payment.API.Authentication
         public string GenerateToken(PartnerEntity user)
         {
             var claims = new[]
-           {
+            {
                 new Claim(JwtRegisteredClaimNames.UniqueName, user.Name),
                 new Claim("id", user.Id.ToString()),
+                new Claim("EnableExchanges", user.EnableExchanges.ToString()),
                 new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
             };
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["JWT:key"]));

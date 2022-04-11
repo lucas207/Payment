@@ -38,7 +38,7 @@ namespace Eice.Payment.API.Controllers
             return ResponseHandle(Ok(new ResponseDto<PartnerDto>() { Success = true, Data = response }));
         }
 
-        [HttpGet("GetAll")]
+        [HttpGet("All")]
         [Authorize]
         public async Task<IActionResult> GetAllEnablePartner()
         {
