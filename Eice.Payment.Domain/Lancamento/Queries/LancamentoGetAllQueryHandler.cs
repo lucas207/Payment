@@ -27,16 +27,16 @@ namespace Eice.Payment.Domain.Lancamento.Queries
                 if (customerFinded is null)
                     throw new Exception("Customer not find");
 
-                resp.Saldo = customerFinded.SaldoAtual;
-                foreach (var item in customerFinded.Lancamentos.OrderByDescending(x => x.Id.CreationTime))
-                {
-                    resp.LancamentoItems.Add(new LancamentoItemDto
-                    {
-                        Description = item.Description,
-                        Quantidade = item.Quantity,
-                        CreationTime = item.Id.CreationTime
-                    });
-                }
+                //resp.Saldo = customerFinded.SaldoAtual;
+                //foreach (var item in customerFinded.Lancamentos.OrderByDescending(x => x.Id.CreationTime))
+                //{
+                //    resp.LancamentoItems.Add(new LancamentoItemDto
+                //    {
+                //        Description = item.Description,
+                //        Quantidade = item.Quantity,
+                //        CreationTime = item.Id.CreationTime
+                //    });
+                //}
 
                 return resp;
             }
