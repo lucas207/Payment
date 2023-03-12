@@ -11,7 +11,7 @@ namespace Eice.Payment.Domain.Customer.Queries
         public decimal Saldo { get; set; }
         public DateTime CreationTime { get; set; }
 
-        protected string CpfFormated
+        public string CpfFormated
         {
             get
             {

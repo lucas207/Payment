@@ -32,7 +32,7 @@ namespace Eice.Payment.Domain.Customer.Queries
                         Cpf = item.Cpf,
                         Name = item.Name,
                         Saldo = item.SaldoAtual,
-                        CreationTime = item.Id.CreationTime
+                        CreationTime = item.Date
                     });
                 }
 
