@@ -4,6 +4,7 @@ namespace Eice.Payment.Domain.Customer.Queries
 {
     public interface ICustomerQueryRepository : IQueryRepository<CustomerEntity>
     {
-        IEnumerable<CustomerEntity> GetAllFromPartnerId(string partnerId);
+        IEnumerable<CustomerEntity> GetAllByPartnerId(string partnerId);
+        IEnumerable<CustomerEntity> GetAllByCpf(string cpf);
     }
 }

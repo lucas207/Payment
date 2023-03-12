@@ -40,7 +40,7 @@ namespace Eice.Payment.Domain.Oferta.Commands
                     throw new Exception("Cliente não encontrado");
 
                 //Validar CustomerIdCreated tem conta nas 2 partners
-                var clienteExisteOutroPartner = _customerQueryRepository.GetAllFromPartnerId(request.CoinIdReceive)
+                var clienteExisteOutroPartner = _customerQueryRepository.GetAllByPartnerId(request.CoinIdReceive)
                     .Any(x => x.Cpf == customer.Cpf);
                 if (!clienteExisteOutroPartner)
                     throw new Exception("Cliente não está apto a negociar esta moeda");

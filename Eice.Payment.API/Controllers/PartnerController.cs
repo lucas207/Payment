@@ -17,7 +17,11 @@ namespace Eice.Payment.API.Controllers
         public PartnerController(IMediator mediator, INotificationHandler<ExceptionNotification> notifications) : base(mediator, notifications)
         {
         }
-
+        /// <summary>
+        /// Endpoint exclusivo Eice autenticate
+        /// </summary>
+        /// <param name="partnerAuthenticateQuery"></param>
+        /// <returns></returns>
         [HttpPost("Authenticate"), AllowAnonymous]
         public async Task<IActionResult> Authenticate([FromBody] PartnerAuthenticateQuery partnerAuthenticateQuery)
         {
@@ -46,7 +50,7 @@ namespace Eice.Payment.API.Controllers
             var response = await _mediator.Send(new PartnerGetAllQuery());
             return ResponseHandle(Ok(new ResponseDto<IEnumerable<PartnerDto>>() { Success = true, Data = response }));
         }
-        
+
         //Obter Total Moedas fornecidas
 
         //Taxa da proporção do valor da moeda em relação aos outros partners

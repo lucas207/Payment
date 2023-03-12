@@ -20,7 +20,7 @@ namespace Eice.Payment.Domain.Customer.Queries
         {
             try
             {
-                IEnumerable<CustomerEntity> list = _customerQueryRepository.GetAllFromPartnerId(request.PartnerId);
+                IEnumerable<CustomerEntity> list = _customerQueryRepository.GetAllByPartnerId(request.PartnerId);
 
                 List<CustomerDto> resp = new();
                 foreach (var item in list)

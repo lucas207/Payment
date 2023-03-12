@@ -51,7 +51,7 @@ namespace Eice.Payment.Domain.Oferta.Commands
                     throw new Exception("Cliente não encontrado");
 
                 //Validar CustomerIdCreated tem conta nas 2 partners
-                var minhaOutraConta = _customerQueryRepository.GetAllFromPartnerId(oferta.CoinOffer.Id.ToString())
+                var minhaOutraConta = _customerQueryRepository.GetAllByPartnerId(oferta.CoinOffer.Id.ToString())
                     .Where(x => x.Cpf == customer.Cpf).FirstOrDefault();
                 if (minhaOutraConta is null)
                     throw new Exception("Cliente não está apto a negociar esta moeda");
@@ -117,7 +117,7 @@ namespace Eice.Payment.Domain.Oferta.Commands
             });
             //identificar a outra conta do cara
             var contaDoCara = await _customerQueryRepository.Get(oferta.CustomerCreated.Id);
-            var outraContaDoCara = _customerQueryRepository.GetAllFromPartnerId(oferta.CoinReceive.Id.ToString())
+            var outraContaDoCara = _customerQueryRepository.GetAllByPartnerId(oferta.CoinReceive.Id.ToString())
                     .Where(x => x.Cpf == contaDoCara.Cpf).FirstOrDefault();
             //coloca pro cara
             await _bus.Send(new LancamentoCreateCommand

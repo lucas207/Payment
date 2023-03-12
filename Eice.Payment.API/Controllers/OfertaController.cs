@@ -3,6 +3,7 @@ using Eice.Payment.API.Response;
 using Eice.Payment.Domain.Notification;
 using Eice.Payment.Domain.Oferta.Commands;
 using Eice.Payment.Domain.Oferta.Queries;
+using Eice.Payment.Domain.Partner.Queries;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -22,10 +23,24 @@ namespace Eice.Payment.API.Controllers
         {
         }
 
+        [HttpGet("AvailablePartners/{customerId}")]
+        public async Task<IActionResult> MoedasDisponiveis(string customerId)
+        {
+            var response = await _mediator.Send(new GetCoinsToTradeQuery
+            {
+                CustomerId = customerId
+            });
+            return ResponseHandle(Ok(new ResponseDto<IEnumerable<CoinDto>>() { Success = true, Data = response }));
+        }
+
         [HttpPost]
         public async Task<IActionResult> CreateOferta([FromBody] OfertaCreateRequest request)
         {
             var idPartner = User.Claims.Where(x => x.Type == "id").FirstOrDefault().Value;
+            var EnableExchanges = bool.Parse(User.Claims.Where(x => x.Type == "EnableExchanges").FirstOrDefault().Value);
+            //verificar se o parter authenticado liberou negociações
+            if (!EnableExchanges)
+                return BadRequest();
 
             var response = await _mediator.Send(new OfertaCreateCommand
             {
@@ -48,14 +63,14 @@ namespace Eice.Payment.API.Controllers
         [HttpGet("{id}")]
         public async Task<IActionResult> GetOfertaById(string id)
         {
-            throw new NotImplementedException();
+            return Ok();
         }
-        //retornar moedas(Partner) disponiveis para negocição, por cliente, para criar uma oferta
 
-        [HttpGet("GetOfertasDisponiveis/{id}")]
+        [HttpGet("GetOfertasDisponiveis/{customerId}")]
         public async Task<IActionResult> GetOfertasDisponiveis(string customerId)
         {
-            return Ok();
+            var response = await _mediator.Send(new OfertaGetByCustomerQuery { CustomerId = customerId });
+            return ResponseHandle(Ok(new ResponseDto<IEnumerable<OfertaDto>>() { Success = true, Data = response }));
         }
 
         [HttpGet("GetMinhasOfertas/{id}")]
