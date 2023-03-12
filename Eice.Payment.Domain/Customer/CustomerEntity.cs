@@ -1,15 +1,11 @@
 ﻿using Eice.Payment.Domain.Lancamento;
-using MongoDB.Bson;
-using MongoDB.Bson.Serialization.Attributes;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace Eice.Payment.Domain.Customer
 {
-    public class CustomerEntity
+    public class CustomerEntity : Entity
     {
-        [BsonId]
-        public ObjectId Id { get; set; }
         [Required]
         public string PartnerId { get; set; }
         [Required]

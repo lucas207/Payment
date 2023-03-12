@@ -1,12 +1,10 @@
-﻿using MongoDB.Bson;
-using MongoDB.Bson.Serialization.Attributes;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace Eice.Payment.Domain.Lancamento
 {
-    public class LancamentoEntity
+    public class LancamentoEntity : Entity
     {
-        [BsonId]
-        public ObjectId Id { get; set; }
+        [Required]
         public decimal Quantity { get; set; }
         public string Description { get; set; }
     }
