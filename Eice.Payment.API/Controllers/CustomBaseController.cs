@@ -1,4 +1,5 @@
-﻿using Eice.Payment.Domain.Notification;
+﻿using Eice.Payment.API.Response;
+using Eice.Payment.Domain.Notification;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
@@ -26,10 +27,10 @@ namespace Eice.Payment.API.Controllers
             if (IsValidOperation())
                 return action;
 
-            return BadRequest(new
+            return BadRequest(new ResponseDto<object>
             {
-                success = false,
-                errors = _notifications.GetNotifications()
+                Success = false,
+                Errors = _notifications.GetNotifications()
             });
         }
     }
