@@ -47,6 +47,16 @@ namespace Eice.Payment.API.Controllers
             return ResponseHandle(Ok(new ResponseDto<IEnumerable<CustomerDto>>() { Success = true, Data = response }));
         }
 
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetCustomer(string id)
+        {
+            var response = await _mediator.Send(new CustomerGetByIdQuery
+            {
+                Id = id
+            });
+            return ResponseHandle(Ok(new ResponseDto<CustomerDetailDto>() { Success = true, Data = response }));
+        }
+
         [HttpPut]
         public async Task<IActionResult> EditCustomer([FromBody] CustomerEditRequest request)
         {
