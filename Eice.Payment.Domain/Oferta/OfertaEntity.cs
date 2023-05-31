@@ -31,6 +31,7 @@ namespace Eice.Payment.Domain.Oferta
     public enum EStatusOferta
     {
         Open,
+        Canceled,
         Executed,
         Error
     }

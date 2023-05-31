@@ -6,5 +6,6 @@ namespace Eice.Payment.Domain.Oferta.Queries
     public class OfertaGetByCustomerQuery : Query, IRequest<IEnumerable<OfertaDto>>
     {
         public string CustomerId { get; set; }
+        public EStatusOferta? Status { get; set; }
     }
 }

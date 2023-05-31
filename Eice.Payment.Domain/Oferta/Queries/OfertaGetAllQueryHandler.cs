@@ -36,7 +36,7 @@ namespace Eice.Payment.Domain.Oferta.Queries
                         QuantityOffer = item.QuantityOffer,
                         CoinIdReceive = item.CoinReceive.Name,
                         QuantityReceive = item.QuantityReceive,
-                        Status = item.Status.ToString(),
+                        Status = item.Status,
                         CreationTime = item.Id.CreationTime
                     });
                 }

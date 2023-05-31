@@ -1,6 +1,7 @@
 ﻿using Eice.Payment.API.Request;
 using Eice.Payment.API.Response;
 using Eice.Payment.Domain.Notification;
+using Eice.Payment.Domain.Oferta;
 using Eice.Payment.Domain.Oferta.Commands;
 using Eice.Payment.Domain.Oferta.Queries;
 using Eice.Payment.Domain.Partner.Queries;
@@ -23,7 +24,7 @@ namespace Eice.Payment.API.Controllers
         {
         }
 
-        [HttpGet("AvailablePartners/{customerId}")]
+        [HttpGet("AvailableCoins/{customerId}")]
         public async Task<IActionResult> MoedasDisponiveis(string customerId)
         {
             var response = await _mediator.Send(new GetCoinsToTradeQuery
@@ -53,6 +54,7 @@ namespace Eice.Payment.API.Controllers
             return ResponseHandle(Ok(new ResponseDto<string>() { Success = true, Data = response }));
         }
 
+        [Obsolete("teste")]
         [HttpGet]
         public async Task<IActionResult> GetAllOferta()
         {
@@ -66,18 +68,18 @@ namespace Eice.Payment.API.Controllers
             return Ok();
         }
 
-        [HttpGet("GetOfertasDisponiveis/{customerId}")]
+        [HttpGet("Disponiveis/{customerId}")]
         public async Task<IActionResult> GetOfertasDisponiveis(string customerId)
         {
-            var response = await _mediator.Send(new OfertaGetByCustomerQuery { CustomerId = customerId });
+            var response = await _mediator.Send(new OfertaGetAvailableByCustomerQuery { CustomerId = customerId });
             return ResponseHandle(Ok(new ResponseDto<IEnumerable<OfertaDto>>() { Success = true, Data = response }));
         }
 
-        [HttpGet("GetMinhasOfertas/{id}")]
-        public async Task<IActionResult> GetMinhasOfertas(string customerId)
+        [HttpGet("Customer/{customerId}")]
+        public async Task<IActionResult> GetMinhasOfertas(string customerId, EStatusOferta? status = null)
         {
-            //ofertas abertas e executadas
-            return ResponseHandle(Ok());
+            var response = await _mediator.Send(new OfertaGetByCustomerQuery { CustomerId = customerId, Status = status });
+            return ResponseHandle(Ok(new ResponseDto<IEnumerable<OfertaDto>>() { Success = true, Data = response }));
         }
 
         //Aceitar oferta X

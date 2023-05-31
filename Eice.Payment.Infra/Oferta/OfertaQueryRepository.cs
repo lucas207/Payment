@@ -39,5 +39,12 @@ namespace Eice.Payment.Infra.Oferta
             var ofertas = await _collection.Find(_ => true).ToListAsync();
             return ofertas;
         }
+
+        public IEnumerable<OfertaEntity> GetByCustomer(string customerId)
+        {
+            var filter = Builders<OfertaEntity>.Filter.Eq(c => c.CustomerCreated.Id, new ObjectId(customerId));
+            var clientes = _collection.Find(filter).ToEnumerable();
+            return clientes;
+        }
     }
 }

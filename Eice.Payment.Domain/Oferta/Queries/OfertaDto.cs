@@ -1,5 +1,4 @@
-﻿using Eice.Payment.Domain.Oferta;
-using System;
+﻿using System;
 
 namespace Eice.Payment.Domain.Oferta.Queries
 {
@@ -10,7 +9,7 @@ namespace Eice.Payment.Domain.Oferta.Queries
         public string CoinIdReceive { get; set; }
         public decimal QuantityOffer { get; set; }
         public decimal QuantityReceive { get; set; }
-        public string Status { get; set; }
+        public EStatusOferta Status { get; set; }
         public DateTime CreationTime { get; set; }
     }
 }
