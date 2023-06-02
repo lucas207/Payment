@@ -33,10 +33,16 @@ namespace Eice.Payment.API.Controllers
             return ResponseHandle(Ok(new ResponseDto<bool>() { Success = true, Data = response }));
         }
 
-        //Autenticar por partner
-        [HttpGet("{customerId}")]
+        [HttpGet("{customerId}")]//por enquanto nem ta usando, ta pegando já direto do customer details by id
         public async Task<IActionResult> GetAllLancamento(string customerId)
         {
+            //Get do detalhe do lancamento
+            //Autenticar por partner
+            //oferta se houver
+            //data hora
+            //descrição se houver
+            //typeOrigem??
+            //customers envolvidos se houver?
             var response = await _mediator.Send(new LancamentoGetAllQuery
             {
                 CustomerId = customerId

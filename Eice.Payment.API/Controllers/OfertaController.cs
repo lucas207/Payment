@@ -4,7 +4,6 @@ using Eice.Payment.Domain.Notification;
 using Eice.Payment.Domain.Oferta;
 using Eice.Payment.Domain.Oferta.Commands;
 using Eice.Payment.Domain.Oferta.Queries;
-using Eice.Payment.Domain.Partner.Queries;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -27,6 +26,11 @@ namespace Eice.Payment.API.Controllers
         [HttpGet("AvailableCoins/{customerId}")]
         public async Task<IActionResult> MoedasDisponiveis(string customerId)
         {
+            var EnableExchanges = bool.Parse(User.Claims.Where(x => x.Type == "EnableExchanges").FirstOrDefault().Value);
+            //verificar se o parter authenticado liberou negociações
+            if (!EnableExchanges)
+                return BadRequest();
+
             var response = await _mediator.Send(new GetCoinsToTradeQuery
             {
                 CustomerId = customerId
@@ -71,7 +75,17 @@ namespace Eice.Payment.API.Controllers
         [HttpGet("Disponiveis/{customerId}")]
         public async Task<IActionResult> GetOfertasDisponiveis(string customerId)
         {
-            var response = await _mediator.Send(new OfertaGetAvailableByCustomerQuery { CustomerId = customerId });
+            var idPartner = User.Claims.Where(x => x.Type == "id").FirstOrDefault().Value;
+            var EnableExchanges = bool.Parse(User.Claims.Where(x => x.Type == "EnableExchanges").FirstOrDefault().Value);
+            //verificar se o parter authenticado liberou negociações
+            if (!EnableExchanges)
+                return BadRequest();
+
+            var response = await _mediator.Send(new OfertaGetAvailableByCustomerQuery
+            {
+                PartnerId = idPartner,
+                CustomerId = customerId
+            });
             return ResponseHandle(Ok(new ResponseDto<IEnumerable<OfertaDto>>() { Success = true, Data = response }));
         }
 
@@ -87,6 +101,10 @@ namespace Eice.Payment.API.Controllers
         public async Task<IActionResult> AceitarOferta([FromBody] OfertaAceitarRequest request)
         {
             var idPartner = User.Claims.Where(x => x.Type == "id").FirstOrDefault().Value;
+            var EnableExchanges = bool.Parse(User.Claims.Where(x => x.Type == "EnableExchanges").FirstOrDefault().Value);
+            //verificar se o parter authenticado liberou negociações
+            if (!EnableExchanges)
+                return BadRequest();
 
             var response = await _mediator.Send(new OfertaEditCommand
             {

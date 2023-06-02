@@ -15,7 +15,7 @@ namespace Eice.Payment.Domain.Customer
         public decimal SaldoAtual { get; set; }
         public List<LancamentoEntity> Lancamentos { get; set; } = new();
         //bool possui moedas em outras instituições
-        //bool permirtir negociar moedas desse partner
+        //bool permirtir negociar moedas desse partner (blackList)
     }
 
 }

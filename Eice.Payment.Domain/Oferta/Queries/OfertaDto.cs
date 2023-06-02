@@ -6,7 +6,9 @@ namespace Eice.Payment.Domain.Oferta.Queries
     {
         public string Id { get; set; }
         public string CoinIdOffer { get; set; }
+        public string CoinNameOffer { get; set; }
         public string CoinIdReceive { get; set; }
+        public string CoinNameReceive { get; set; }
         public decimal QuantityOffer { get; set; }
         public decimal QuantityReceive { get; set; }
         public EStatusOferta Status { get; set; }

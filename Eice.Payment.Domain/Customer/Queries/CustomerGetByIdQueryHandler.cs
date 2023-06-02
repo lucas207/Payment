@@ -28,7 +28,6 @@ namespace Eice.Payment.Domain.Customer.Queries
                 return new CustomerDetailDto
                 {
                     Id = customer.Id.ToString(),
-                    PartnerId = customer.PartnerId,
                     Cpf = customer.Cpf,
                     Name = customer.Name,
                     Saldo = customer.SaldoAtual,

@@ -81,7 +81,7 @@ namespace Eice.Payment.Domain.Oferta.Commands
 
         private async Task TransferirRecursosAsync(CustomerEntity customerAccepted, OfertaEntity oferta, CustomerEntity minhaOutraConta)
         {
-            //customer criou -genial e +xp
+            //customer criou -G e +X
             //transferir a coin offer
             //tira do cara
             await _bus.Send(new LancamentoCreateCommand
@@ -105,7 +105,7 @@ namespace Eice.Payment.Domain.Oferta.Commands
                 Description = $"Trocado por {oferta.QuantityReceive} {oferta.CoinReceive.Name}"
             });
 
-            //customer aceitou +genial e -xp
+            //customer aceitou +G e -X
             //transferir a coin receive
             //tira de mim
             await _bus.Send(new LancamentoCreateCommand

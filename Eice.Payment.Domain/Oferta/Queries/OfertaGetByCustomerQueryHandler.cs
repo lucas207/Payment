@@ -21,7 +21,6 @@ namespace Eice.Payment.Domain.Oferta.Queries
         {
             try
             {
-
                 IEnumerable<OfertaEntity> list = _ofertaQueryRepository.GetByCustomer(request.CustomerId);
 
                 if (request.Status != null)
@@ -33,8 +32,10 @@ namespace Eice.Payment.Domain.Oferta.Queries
                     resp.Add(new OfertaDto
                     {
                         Id = entity.Id.ToString(),
-                        CoinIdOffer = entity.CoinOffer.ToString(),
-                        CoinIdReceive = entity.CoinReceive.ToString(),
+                        CoinIdOffer = entity.CoinOffer.Id.ToString(),
+                        CoinNameOffer = entity.CoinOffer.Name,
+                        CoinIdReceive = entity.CoinReceive.Id.ToString(),
+                        CoinNameReceive = entity.CoinReceive.Name,
                         QuantityOffer = entity.QuantityOffer,
                         QuantityReceive = entity.QuantityReceive,
                         Status = entity.Status,
@@ -42,7 +43,7 @@ namespace Eice.Payment.Domain.Oferta.Queries
                     });
                 }
 
-                return resp;
+                return resp.OrderByDescending(x => x.CreationTime);
             }
             catch (Exception ex)
             {
